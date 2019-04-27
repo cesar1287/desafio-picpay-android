@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Desafio PicPay</string>
+
+    <string name="main_title">Contatos</string>
+    <string name="main_hint_search">A quem você deseja pagar?</string>
 </resources>

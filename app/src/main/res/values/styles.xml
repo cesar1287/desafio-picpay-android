@@ -6,6 +6,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <style name="MainTitle">
+        <item name="android:layout_margin">@dimen/default_margin_title</item>
+        <item name="android:textSize">@dimen/default_title_size</item>
+        <item name="android:textColor">@color/title_white</item>
     </style>
 
 </resources>
