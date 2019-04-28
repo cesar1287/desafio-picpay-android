@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.usersLiveData.observe(this, Observer { resource ->
             when (resource?.status) {
                 Status.ERROR -> {
-                    errorMessage.text = resource.message
+                    tvMainErrorMessage.text = resource.message
 
                     setVisibility(
                         progress = View.GONE,
@@ -52,15 +52,20 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        buttonRetry.setOnClickListener {
+        btMainRetry.setOnClickListener {
             loadContent()
+            setVisibility(
+                progress = View.VISIBLE,
+                recycler = View.GONE,
+                error = View.GONE
+            )
         }
     }
 
     private fun setVisibility(progress: Int, recycler: Int, error: Int) {
         pbMainLoading.visibility = progress
         vgMainContainer.visibility = recycler
-        errorLayout.visibility = error
+        vgMainErrorLayout.visibility = error
     }
 
     private fun loadContent() {
