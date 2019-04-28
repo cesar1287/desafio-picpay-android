@@ -15,7 +15,8 @@ buildscript {
             'recyclerView'          : '1.1.0-alpha04',
             'retrofit'              : '2.5.0',
             'glide'                 : '4.8.0',
-            'gson'                  : '2.8.5'
+            'gson'                  : '2.8.5',
+            'circleImageView'       : '3.0.0'
     ]
 
     repositories {

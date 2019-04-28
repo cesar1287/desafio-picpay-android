@@ -35,6 +35,10 @@ class HomeAdapter(private var context: Context, private var list: List<User>) : 
                 .with(context)
                 .load(user.img)
                 .into(itemView.rvContactsItemAvatar)
+
+            itemView.contentLayout.setOnClickListener {
+                //todo
+            }
         }
     }
 }

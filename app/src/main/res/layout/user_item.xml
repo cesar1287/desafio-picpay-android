@@ -5,9 +5,11 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="68dp"
-        android:id="@+id/contentLayout">
+        android:id="@+id/contentLayout"
+        android:background="?selectableItemBackground"
+>
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/rvContactsItemAvatar"
             android:layout_width="52dp"
             android:layout_height="52dp"
