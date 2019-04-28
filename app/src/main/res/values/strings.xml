@@ -11,4 +11,9 @@
         de crédito pessoal.
     </string>
     <string name="cover_credit_card_register_card">Cadastrar cartão</string>
+    <string name="credit_card_title">Cadastrar cartão</string>
+    <string name="credit_card_number">Número do cartão</string>
+    <string name="credit_card_name">Nome do titular</string>
+    <string name="credit_card_expire">Vencimento</string>
+    <string name="credit_card_cvv">CVV</string>
 </resources>
