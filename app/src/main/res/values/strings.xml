@@ -16,4 +16,5 @@
     <string name="credit_card_name">Nome do titular</string>
     <string name="credit_card_expire">Vencimento</string>
     <string name="credit_card_cvv">CVV</string>
+    <string name="credit_card_save">Salvar</string>
 </resources>

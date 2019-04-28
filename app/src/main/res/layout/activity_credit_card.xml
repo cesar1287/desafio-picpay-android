@@ -50,7 +50,10 @@
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tieCreditCardNumber"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    style="@style/TextInputEditText"
+            />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -70,7 +73,10 @@
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tieCreditCardName"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    style="@style/TextInputEditText"
+            />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -91,7 +97,10 @@
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tieCreditCardExpire"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    style="@style/TextInputEditText"
+            />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -112,8 +121,22 @@
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tieCreditCardCvv"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    style="@style/TextInputEditText"
+            />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+                android:id="@+id/btCreditCardSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/xdefaultMargin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="@string/credit_card_save"
+                android:visibility="gone"
+                style="@style/ButtonDefault"
+        />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
