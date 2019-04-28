@@ -31,18 +31,36 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.usersLiveData.observe(this, Observer { resource ->
             when (resource?.status) {
                 Status.ERROR -> {
-                    //errorMessage.text = resource.message
+                    errorMessage.text = resource.message
 
-                    //setVisibility(View.GONE, View.GONE, View.GONE, View.VISIBLE)
+                    setVisibility(
+                        progress = View.GONE,
+                        recycler = View.GONE,
+                        error = View.VISIBLE
+                    )
                 }
                 Status.SUCCESS -> {
-                    //setVisibility(View.GONE, View.VISIBLE, View.GONE, View.GONE)
+                    setVisibility(
+                        progress = View.GONE,
+                        recycler = View.VISIBLE,
+                        error = View.GONE
+                    )
                     pbMainLoading.visibility = View.GONE
                     usersList.addAll(resource.data as Collection<User>)
                     homeAdapter.notifyDataSetChanged()
                 }
             }
         })
+
+        buttonRetry.setOnClickListener {
+            loadContent()
+        }
+    }
+
+    private fun setVisibility(progress: Int, recycler: Int, error: Int) {
+        pbMainLoading.visibility = progress
+        vgMainContainer.visibility = recycler
+        errorLayout.visibility = error
     }
 
     private fun loadContent() {

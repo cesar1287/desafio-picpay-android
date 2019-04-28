@@ -3,4 +3,6 @@
 
     <string name="main_title">Contatos</string>
     <string name="main_hint_search">A quem você deseja pagar?</string>
+
+    <string name="label_retry">Tentar novamente</string>
 </resources>
