@@ -1,6 +1,6 @@
 package cesar1287.com.github.desafiopicpay.core.util
 
-import cesar1287.com.github.desafiopicpay.core.api.APIError
+import cesar1287.com.github.desafiopicpay.core.api.ApiError
 import cesar1287.com.github.desafiopicpay.core.api.ApiService
 import okhttp3.ResponseBody
 import retrofit2.Converter
@@ -9,18 +9,18 @@ import java.io.IOException
 
 object ErrorUtils {
 
-    fun parseError(response: Response<*>): APIError? {
-        val converter: Converter<ResponseBody, APIError> = ApiService.getPicpayApiClient()
-            .responseBodyConverter(APIError::class.java, arrayOfNulls<Annotation>(0))
+    fun parseError(response: Response<*>): ApiError? {
+        val converter: Converter<ResponseBody, ApiError> = ApiService.getPicpayApiClient()
+            .responseBodyConverter(ApiError::class.java, arrayOfNulls<Annotation>(0))
 
-        var error: APIError? = null
+        var error: ApiError? = null
 
         try {
             response.errorBody()?.let { errorBody ->
                 error = converter.convert(errorBody)
             }
         } catch (e: IOException) {
-            return APIError()
+            return ApiError()
         }
 
         return error

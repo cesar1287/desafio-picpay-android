@@ -1,6 +1,7 @@
 package cesar1287.com.github.desafiopicpay.features.home.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import cesar1287.com.github.desafiopicpay.R
 import cesar1287.com.github.desafiopicpay.core.model.User
 import cesar1287.com.github.desafiopicpay.core.util.GlideApp
+import cesar1287.com.github.desafiopicpay.features.creditCard.activity.CreditCardCoverActivity
 import kotlinx.android.synthetic.main.user_item.view.*
 
 class HomeAdapter(private var context: Context, private var list: List<User>) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
@@ -37,7 +39,7 @@ class HomeAdapter(private var context: Context, private var list: List<User>) : 
                 .into(itemView.rvContactsItemAvatar)
 
             itemView.contentLayout.setOnClickListener {
-                //todo
+                context.startActivity(Intent(context, CreditCardCoverActivity::class.java))
             }
         }
     }
