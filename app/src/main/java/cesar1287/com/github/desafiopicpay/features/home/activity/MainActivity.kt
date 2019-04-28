@@ -6,6 +6,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import cesar1287.com.github.desafiopicpay.R
+import cesar1287.com.github.desafiopicpay.core.api.Status
 import cesar1287.com.github.desafiopicpay.core.model.User
 import cesar1287.com.github.desafiopicpay.features.home.adapter.HomeAdapter
 import cesar1287.com.github.desafiopicpay.features.home.viewmodel.MainViewModel
@@ -22,14 +23,30 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setupRecyclerView()
+        setupObservables()
+        loadContent()
+    }
 
-        mainViewModel.fetchUsers()
+    private fun setupObservables() {
+        mainViewModel.usersLiveData.observe(this, Observer { resource ->
+            when (resource?.status) {
+                Status.ERROR -> {
+                    //errorMessage.text = resource.message
 
-        mainViewModel.usersLiveData.observe(this, Observer {
-            pbMainLoading.visibility = View.GONE
-            usersList.addAll(it)
-            homeAdapter.notifyDataSetChanged()
+                    //setVisibility(View.GONE, View.GONE, View.GONE, View.VISIBLE)
+                }
+                Status.SUCCESS -> {
+                    //setVisibility(View.GONE, View.VISIBLE, View.GONE, View.GONE)
+                    pbMainLoading.visibility = View.GONE
+                    usersList.addAll(resource.data as Collection<User>)
+                    homeAdapter.notifyDataSetChanged()
+                }
+            }
         })
+    }
+
+    private fun loadContent() {
+        mainViewModel.fetchUsers()
     }
 
     private fun setupRecyclerView() {

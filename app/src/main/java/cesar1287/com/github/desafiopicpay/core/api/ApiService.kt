@@ -10,7 +10,7 @@ object ApiService {
 
     val picpayApi: PicpayApi = getPicpayApiClient().create(PicpayApi::class.java)
 
-    private fun getPicpayApiClient() : Retrofit {
+    fun getPicpayApiClient() : Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())

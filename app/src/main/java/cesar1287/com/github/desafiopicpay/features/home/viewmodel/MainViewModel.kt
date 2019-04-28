@@ -3,9 +3,13 @@ package cesar1287.com.github.desafiopicpay.features.home.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import cesar1287.com.github.desafiopicpay.core.api.ApiService
+import cesar1287.com.github.desafiopicpay.core.api.Resource
 import cesar1287.com.github.desafiopicpay.core.api.repository.home.UserRepository
 import cesar1287.com.github.desafiopicpay.core.model.User
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 class MainViewModel : ViewModel(){
@@ -19,7 +23,7 @@ class MainViewModel : ViewModel(){
 
     private val repository : UserRepository = UserRepository(ApiService.picpayApi)
 
-    val usersLiveData = MutableLiveData<MutableList<User>>()
+    val usersLiveData = MutableLiveData<Resource>()
 
     fun fetchUsers(){
         scope.launch {
