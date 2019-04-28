@@ -5,4 +5,10 @@
     <string name="main_hint_search">A quem você deseja pagar?</string>
 
     <string name="label_retry">Tentar novamente</string>
+
+    <string name="cover_credit_card_title">Cadastre um cartão de crédito</string>
+    <string name="cover_credit_card_subtitle">Para fazer pagamentos para outras pessoas você precisa cadastrar um cartão
+        de crédito pessoal.
+    </string>
+    <string name="cover_credit_card_register_card">Cadastrar cartão</string>
 </resources>

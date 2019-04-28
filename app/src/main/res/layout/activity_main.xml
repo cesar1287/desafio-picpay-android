@@ -25,6 +25,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/main_title"
                         style="@style/MainTitle"
+                        android:layout_margin="@dimen/default_margin_title"
                 />
 
                 <EditText
@@ -71,7 +72,7 @@
                     android:paddingTop="@dimen/largeMargin"
                     android:paddingBottom="@dimen/defaultMargin"
                     android:clipToPadding="false"
-                    tools:itemCount="2"
+                    tools:itemCount="8"
                     tools:listitem="@layout/user_item"
             />
 
@@ -88,22 +89,22 @@
         />
 
         <RelativeLayout
-                android:id="@+id/errorLayout"
+                android:id="@+id/vgMainErrorLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="gone">
 
             <ImageView
-                    android:id="@+id/iconError"
+                    android:id="@+id/ivMainIconError"
                     app:srcCompat="@drawable/ic_baseline_error_outline"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_above="@id/errorMessage"
+                    android:layout_above="@id/tvMainErrorMessage"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/minimumMargin"/>
 
             <TextView
-                    android:id="@+id/errorMessage"
+                    android:id="@+id/tvMainErrorMessage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/minimumMargin"
@@ -117,16 +118,15 @@
             />
 
             <Button
-                    android:id="@+id/buttonRetry"
+                    android:id="@+id/btMainRetry"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/label_retry"
-                    android:textColor="@color/title_white"
-                    android:background="@color/colorAccent"
-                    android:layout_below="@id/errorMessage"
+                    android:layout_below="@id/tvMainErrorMessage"
                     android:layout_marginTop="@dimen/minimumMargin"
                     android:layout_centerHorizontal="true"
-                    android:padding="@dimen/minimumMargin"
+                    android:padding="@dimen/xdefaultMargin"
+                    style="@style/ButtonDefault"
             />
         </RelativeLayout>
 
