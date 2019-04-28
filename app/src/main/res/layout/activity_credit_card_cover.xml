@@ -12,14 +12,14 @@
             android:layout_width="100dp"
             android:layout_height="70dp"
             app:srcCompat="@drawable/ic_credit_card"
-            app:layout_constraintBottom_toTopOf="@id/ivCoverCreditCardTitle"
+            app:layout_constraintBottom_toTopOf="@id/tvCoverCreditCardTitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginBottom="@dimen/xlargeMargin"
     />
 
     <TextView
-            android:id="@+id/ivCoverCreditCardTitle"
+            android:id="@+id/tvCoverCreditCardTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/cover_credit_card_title"
@@ -34,11 +34,11 @@
     />
 
     <TextView
-            android:id="@+id/ivCoverCreditCardSubtitle"
+            android:id="@+id/tvCoverCreditCardSubtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/cover_credit_card_subtitle"
-            app:layout_constraintTop_toBottomOf="@id/ivCoverCreditCardTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvCoverCreditCardTitle"
             android:layout_marginStart="@dimen/xxlargeMargin"
             android:layout_marginEnd="@dimen/xxlargeMargin"
             android:layout_marginTop="@dimen/defaultMargin"
@@ -48,7 +48,7 @@
     />
 
     <Button
-            android:id="@+id/ivCoverCreditCardRegister"
+            android:id="@+id/btCoverCreditCardRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
