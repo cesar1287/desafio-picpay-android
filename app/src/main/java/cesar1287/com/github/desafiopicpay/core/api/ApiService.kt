@@ -1,7 +1,6 @@
 package cesar1287.com.github.desafiopicpay.core.api
 
-import cesar1287.com.github.desafiopicpay.core.api.callbacks.PicpayApi
-import cesar1287.com.github.desafiopicpay.core.util.BASE_URL
+import cesar1287.com.github.desafiopicpay.core.util.Api.BASE_URL
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
