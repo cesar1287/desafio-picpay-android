@@ -4,8 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import cesar1287.com.github.desafiopicpay.core.api.ApiService
 import cesar1287.com.github.desafiopicpay.core.api.Resource
-import cesar1287.com.github.desafiopicpay.core.api.repository.home.UserRepository
-import cesar1287.com.github.desafiopicpay.core.model.User
+import cesar1287.com.github.desafiopicpay.core.repository.home.UserRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

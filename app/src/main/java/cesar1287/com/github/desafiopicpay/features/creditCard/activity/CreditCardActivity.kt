@@ -2,9 +2,7 @@ package cesar1287.com.github.desafiopicpay.features.creditCard.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import cesar1287.com.github.desafiopicpay.R
 import cesar1287.com.github.desafiopicpay.core.util.CreditCard.KEY_HASH_CARD_NUMBER

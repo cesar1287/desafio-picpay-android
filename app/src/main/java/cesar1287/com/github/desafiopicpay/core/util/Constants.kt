@@ -2,7 +2,6 @@ package cesar1287.com.github.desafiopicpay.core.util
 
 object Api {
     const val BASE_URL = "http://careers.picpay.com/tests/mobdev/"
-
 }
 
 object Error {

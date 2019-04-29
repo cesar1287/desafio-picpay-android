@@ -1,9 +1,7 @@
 package cesar1287.com.github.desafiopicpay.features.creditCard.viewmodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import cesar1287.com.github.desafiopicpay.core.database.PicPayDatabase
 import cesar1287.com.github.desafiopicpay.core.model.CreditCard

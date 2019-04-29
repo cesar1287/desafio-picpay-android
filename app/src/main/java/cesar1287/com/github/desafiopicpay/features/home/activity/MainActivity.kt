@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import cesar1287.com.github.desafiopicpay.R
 import cesar1287.com.github.desafiopicpay.core.api.Status
@@ -14,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val mainViewModel by lazy { MainViewModel() }
+    private var mainViewModel: MainViewModel? = null
     private lateinit var homeAdapter: HomeAdapter
     private val usersList: MutableList<User> = mutableListOf()
 
@@ -28,7 +29,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupObservables() {
-        mainViewModel.usersLiveData.observe(this, Observer { resource ->
+        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+
+        mainViewModel?.usersLiveData?.observe(this, Observer { resource ->
             when (resource?.status) {
                 Status.ERROR -> {
                     tvMainErrorMessage.text = resource.message
@@ -69,7 +72,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadContent() {
-        mainViewModel.fetchUsers()
+        mainViewModel?.fetchUsers()
     }
 
     private fun setupRecyclerView() {
