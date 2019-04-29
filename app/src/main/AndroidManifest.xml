@@ -12,10 +12,8 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
-        <activity android:name=".features.creditCard.activity.CreditCardCoverActivity">
-        </activity>
-        <activity android:name=".features.creditCard.activity.CreditCardActivity">
-        </activity>
+        <activity android:name=".features.creditCard.activity.CreditCardCoverActivity"/>
+        <activity android:name=".features.creditCard.activity.CreditCardActivity"/>
         <activity android:name=".features.home.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
