@@ -10,11 +10,17 @@
     <string name="cover_credit_card_subtitle">Para fazer pagamentos para outras pessoas você precisa cadastrar um cartão
         de crédito pessoal.
     </string>
+
     <string name="cover_credit_card_register_card">Cadastrar cartão</string>
+
     <string name="credit_card_title">Cadastrar cartão</string>
     <string name="credit_card_number">Número do cartão</string>
     <string name="credit_card_name">Nome do titular</string>
     <string name="credit_card_expire">Vencimento</string>
     <string name="credit_card_cvv">CVV</string>
     <string name="credit_card_save">Salvar</string>
+
+    <string name="payment_pay">Pagar</string>
+    <string name="payment_monetary_mask">R$</string>
+    <string name="payment_default_value">0,00</string>
 </resources>

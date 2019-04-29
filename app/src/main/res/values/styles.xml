@@ -21,6 +21,16 @@
         <item name="android:textColor">@color/title_white</item>
     </style>
 
+    <style name="ValuePayment">
+        <item name="android:textSize">@dimen/default_value_size</item>
+        <item name="android:textColor">@color/title_white</item>
+    </style>
+
+    <style name="Monetary">
+        <item name="android:textSize">@dimen/default_monetary_size</item>
+        <item name="android:textColor">@color/title_white</item>
+    </style>
+
     <style name="ButtonDefault">
         <item name="android:background">@drawable/custom_buttom</item>
         <item name="android:textSize">@dimen/default_button_size</item>
