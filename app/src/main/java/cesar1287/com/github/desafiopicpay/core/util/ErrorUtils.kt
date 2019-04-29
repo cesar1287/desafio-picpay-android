@@ -20,7 +20,7 @@ object ErrorUtils {
                 error = converter.convert(errorBody)
             }
         } catch (e: IOException) {
-            return ApiError()
+            return ApiError
         }
 
         return error
