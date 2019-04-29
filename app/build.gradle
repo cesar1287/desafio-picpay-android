@@ -62,6 +62,9 @@ dependencies {
     //jetpack
     implementation "androidx.lifecycle:lifecycle-extensions:${versions.lifecycle}"
     kapt "androidx.lifecycle:lifecycle-compiler:${versions.lifecycle}"
+    implementation "androidx.room:room-runtime:${versions.room}"
+    kapt "androidx.room:room-compiler:${versions.room}"
+    implementation "androidx.room:room-ktx:${versions.room}"
 
     //tests
     testImplementation 'junit:junit:4.12'
