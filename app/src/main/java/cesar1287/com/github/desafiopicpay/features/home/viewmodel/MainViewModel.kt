@@ -5,7 +5,10 @@ import androidx.lifecycle.ViewModel
 import cesar1287.com.github.desafiopicpay.core.api.ApiService
 import cesar1287.com.github.desafiopicpay.core.api.Resource
 import cesar1287.com.github.desafiopicpay.core.repository.home.UserRepository
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 class MainViewModel : ViewModel(){

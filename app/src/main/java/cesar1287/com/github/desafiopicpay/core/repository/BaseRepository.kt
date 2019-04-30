@@ -1,6 +1,5 @@
 package cesar1287.com.github.desafiopicpay.core.repository
 
-import android.util.Log
 import cesar1287.com.github.desafiopicpay.core.api.Resource
 import cesar1287.com.github.desafiopicpay.core.util.Error.ERROR_DEFAULT
 import cesar1287.com.github.desafiopicpay.core.util.ErrorUtils
@@ -16,8 +15,6 @@ open class BaseRepository{
     private suspend fun <T: Any> safeApiResult(call: suspend ()-> Response<T>) : Resource{
         try {
             val response = call.invoke()
-
-            Log.i("teste", response.toString())
 
             return if(response.isSuccessful) {
                 Resource.success(response.body())

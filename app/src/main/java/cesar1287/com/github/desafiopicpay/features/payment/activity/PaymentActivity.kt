@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import cesar1287.com.github.desafiopicpay.R
 import cesar1287.com.github.desafiopicpay.core.api.Status
+import cesar1287.com.github.desafiopicpay.core.model.TransationResponse
 import cesar1287.com.github.desafiopicpay.core.model.User
 import cesar1287.com.github.desafiopicpay.core.util.GlideApp
 import cesar1287.com.github.desafiopicpay.core.util.Home.KEY_EXTRA_USER
@@ -14,6 +15,7 @@ import cesar1287.com.github.desafiopicpay.core.util.Payment.API_CVV
 import cesar1287.com.github.desafiopicpay.core.util.Payment.API_DESTINATION_USER_ID
 import cesar1287.com.github.desafiopicpay.core.util.Payment.API_EXPIRY_DATE
 import cesar1287.com.github.desafiopicpay.core.util.Payment.API_VALUE
+import cesar1287.com.github.desafiopicpay.core.util.Payment.KEY_EXTRA_TRANSACTION
 import cesar1287.com.github.desafiopicpay.features.BaseActivity
 import cesar1287.com.github.desafiopicpay.features.payment.viewmodel.PaymentViewModel
 import kotlinx.android.synthetic.main.activity_payment.*
@@ -44,6 +46,8 @@ class PaymentActivity : BaseActivity() {
                 API_VALUE to 79.9
             )
 
+            //todo verificar na response se a transação foi recusada
+
             paymentViewModel?.insertTransaction(body)
         }
 
@@ -53,7 +57,12 @@ class PaymentActivity : BaseActivity() {
                     Log.i("teste", "erro")
                 }
                 Status.SUCCESS -> {
-                    Log.i("teste", "sucesso")
+                    val bundle = Bundle().apply {
+                        putParcelable(KEY_EXTRA_TRANSACTION, resource.data as? TransationResponse)
+                    }
+                    val bottomSheetFragment = ReceiptBottomSheetFragment()
+                    bottomSheetFragment.arguments = bundle
+                    bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
                 }
             }
         })

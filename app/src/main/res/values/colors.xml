@@ -6,4 +6,8 @@
     
     <color name="title_white">#FFFFFF</color>
     <color name="hint_text_input">#64FFFFFF</color>
+
+    <color name="backgroud_header_receipt">#151516</color>
+
+    <color name="backgroud_divisor_receipt">#3D4451</color>
 </resources>

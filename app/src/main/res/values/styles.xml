@@ -16,8 +16,19 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="ReceiptTitle">
+        <item name="android:textSize">@dimen/receipt_title_size</item>
+        <item name="android:textColor">@color/title_white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="Subtitle">
         <item name="android:textSize">@dimen/default_subtitle_size</item>
+        <item name="android:textColor">@color/title_white</item>
+    </style>
+
+    <style name="ReceiptTransaction">
+        <item name="android:textSize">@dimen/receipt_transaction_size</item>
         <item name="android:textColor">@color/title_white</item>
     </style>
 
@@ -48,5 +59,4 @@
         <item name="android:textSize">@dimen/default_text_input_size</item>
         <item name="android:textColor">@color/title_white</item>
     </style>
-
 </resources>

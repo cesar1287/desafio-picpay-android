@@ -23,4 +23,6 @@
     <string name="payment_pay">Pagar</string>
     <string name="payment_monetary_mask">R$</string>
     <string name="payment_default_value">0,00</string>
+    <string name="receipt_label">Recibo</string>
+    <string name="receipt_total">Total pago</string>
 </resources>
