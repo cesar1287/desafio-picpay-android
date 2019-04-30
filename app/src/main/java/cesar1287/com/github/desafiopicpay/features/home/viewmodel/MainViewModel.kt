@@ -5,15 +5,12 @@ import androidx.lifecycle.ViewModel
 import cesar1287.com.github.desafiopicpay.core.api.ApiService
 import cesar1287.com.github.desafiopicpay.core.api.Resource
 import cesar1287.com.github.desafiopicpay.core.repository.home.UserRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
 class MainViewModel : ViewModel(){
 
-    private val parentJob = SupervisorJob()
+    private val parentJob = Job()
 
     private val coroutineContext: CoroutineContext
         get() = parentJob + Dispatchers.Default

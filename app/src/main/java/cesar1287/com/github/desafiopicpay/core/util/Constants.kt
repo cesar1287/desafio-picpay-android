@@ -18,3 +18,11 @@ object CreditCard {
 object Home {
     const val KEY_EXTRA_USER = "user"
 }
+
+object Payment {
+    const val API_DESTINATION_USER_ID = "destination_user_id"
+    const val API_VALUE = "value"
+    const val API_CARD_NUMBER = "card_number"
+    const val API_EXPIRY_DATE = "expiry_date"
+    const val API_CVV = "cvv"
+}

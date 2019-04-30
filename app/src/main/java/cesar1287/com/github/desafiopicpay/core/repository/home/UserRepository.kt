@@ -11,5 +11,4 @@ class UserRepository(private val api : PicpayApi) : BaseRepository() {
             call = { api.users().await() }
         )
     }
-
 }
