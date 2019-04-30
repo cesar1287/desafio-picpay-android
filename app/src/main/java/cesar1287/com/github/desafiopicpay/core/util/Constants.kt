@@ -14,3 +14,7 @@ object CreditCard {
     const val KEY_HASH_EXPIRY_DATE = "expiryDate"
     const val KEY_HASH_CVV = "cvv"
 }
+
+object Home {
+    const val KEY_EXTRA_USER = "user"
+}

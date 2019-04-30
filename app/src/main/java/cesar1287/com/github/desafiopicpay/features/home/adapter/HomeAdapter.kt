@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import cesar1287.com.github.desafiopicpay.R
 import cesar1287.com.github.desafiopicpay.core.model.User
 import cesar1287.com.github.desafiopicpay.core.util.GlideApp
+import cesar1287.com.github.desafiopicpay.core.util.Home.KEY_EXTRA_USER
 import cesar1287.com.github.desafiopicpay.features.creditCard.activity.CreditCardActivity
 import cesar1287.com.github.desafiopicpay.features.creditCard.activity.CreditCardCoverActivity
 import cesar1287.com.github.desafiopicpay.features.payment.activity.PaymentActivity
@@ -41,7 +42,9 @@ class HomeAdapter(private var context: Context, private var list: List<User>) : 
                 .into(itemView.rvContactsItemAvatar)
 
             itemView.contentLayout.setOnClickListener {
-                context.startActivity(Intent(context, PaymentActivity::class.java))
+                val intent = Intent(context, PaymentActivity::class.java)
+                intent.putExtra(KEY_EXTRA_USER, user)
+                context.startActivity(intent)
             }
         }
     }
