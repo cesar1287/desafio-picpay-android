@@ -32,6 +32,12 @@
         <item name="android:textColor">@color/title_white</item>
     </style>
 
+    <style name="ReceiptTotal">
+        <item name="android:textSize">@dimen/default_monetary_size</item>
+        <item name="android:textColor">@color/title_white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="ValuePayment">
         <item name="android:textSize">@dimen/default_value_size</item>
         <item name="android:textColor">@color/title_white</item>

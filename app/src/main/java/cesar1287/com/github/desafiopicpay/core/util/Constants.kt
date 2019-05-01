@@ -26,4 +26,5 @@ object Payment {
     const val API_EXPIRY_DATE = "expiry_date"
     const val API_CVV = "cvv"
     const val KEY_EXTRA_TRANSACTION = "transaction"
+    const val KEY_EXTRA_CREDIT_CARD = "creditCard"
 }
