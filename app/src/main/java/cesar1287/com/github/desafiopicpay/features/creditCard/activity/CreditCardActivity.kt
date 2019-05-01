@@ -13,6 +13,7 @@ import cesar1287.com.github.desafiopicpay.core.util.CreditCard.KEY_HASH_ID
 import cesar1287.com.github.desafiopicpay.core.util.CreditCard.KEY_HASH_NAME
 import cesar1287.com.github.desafiopicpay.core.util.MaskWatcher
 import cesar1287.com.github.desafiopicpay.core.util.Payment.KEY_EXTRA_CREDIT_CARD
+import cesar1287.com.github.desafiopicpay.extensions.removeAllWhiteSpaces
 import cesar1287.com.github.desafiopicpay.extensions.showToast
 import cesar1287.com.github.desafiopicpay.features.BaseActivity
 import cesar1287.com.github.desafiopicpay.features.creditCard.viewmodel.CreditCardViewModel
@@ -54,7 +55,7 @@ class CreditCardActivity : BaseActivity() {
 
         btCreditCardSave.setOnClickListener {
             val creditCardHashMap: HashMap<String, Any?> = hashMapOf(
-                KEY_HASH_CARD_NUMBER to tieCreditCardNumber.text.toString(),
+                KEY_HASH_CARD_NUMBER to tieCreditCardNumber.text.toString().removeAllWhiteSpaces(),
                 KEY_HASH_NAME to tieCreditCardName.text.toString(),
                 KEY_HASH_EXPIRY_DATE to tieCreditCardExpire.text.toString(),
                 KEY_HASH_CVV to tieCreditCardCvv.text.toString(),

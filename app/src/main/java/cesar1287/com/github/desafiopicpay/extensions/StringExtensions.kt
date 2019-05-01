@@ -18,3 +18,7 @@ fun String.replaceDesiredToBlank(regex: String): String {
 fun String.brlToDouble(): Double {
     return NumberFormat.getInstance(Locale("pt", "BR")).parse(this).toDouble()
 }
+
+fun String.removeAllWhiteSpaces(): String {
+    return this.replace("\\s".toRegex(), "")
+}
