@@ -44,35 +44,51 @@
                 tools:text="zelda.williams"
         />
 
-        <EditText
-                android:id="@+id/etPaymentValue"
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/vgPaymentMonetaryContainer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xlargeMargin"
+                android:layout_marginStart="@dimen/defaultMargin"
+                android:layout_marginEnd="@dimen/defaultMargin"
                 app:layout_constraintTop_toBottomOf="@+id/tvPaymentUsername"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="@dimen/xlargeMargin"
-                android:inputType="numberDecimal"
-                android:text="@string/payment_default_value"
-                style="@style/ValuePayment"
-        />
+                app:layout_constraintBottom_toTopOf="@+id/vgPaymentCreditCardContainer"
+        >
 
-        <TextView
-                android:id="@+id/tvPaymentMonetaryMask"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/tvPaymentUsername"
-                app:layout_constraintEnd_toStartOf="@id/etPaymentValue"
-                android:layout_marginEnd="@dimen/minimumMargin"
-                android:layout_marginTop="@dimen/xxxlargeMargin"
-                android:text="@string/payment_monetary_mask"
-                style="@style/Monetary"
-        />
+            <EditText
+                    android:id="@+id/etPaymentValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tvPaymentMonetaryMask"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:inputType="numberDecimal|textMultiLine"
+                    android:text="@string/payment_default_value"
+                    style="@style/ValuePayment"
+            />
+
+            <TextView
+                    android:id="@+id/tvPaymentMonetaryMask"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/etPaymentValue"
+                    android:layout_marginEnd="@dimen/minimumMargin"
+                    android:text="@string/payment_monetary_mask"
+                    style="@style/Monetary"
+            />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/vgPaymentCreditCardContainer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/etPaymentValue"
+                app:layout_constraintTop_toBottomOf="@+id/vgPaymentMonetaryContainer"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/xlargeMargin"
