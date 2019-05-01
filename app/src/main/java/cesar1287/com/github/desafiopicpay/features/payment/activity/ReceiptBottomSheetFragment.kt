@@ -10,6 +10,7 @@ import cesar1287.com.github.desafiopicpay.core.model.TransactionResponse
 import cesar1287.com.github.desafiopicpay.core.util.GlideApp
 import cesar1287.com.github.desafiopicpay.core.util.Payment.KEY_EXTRA_CREDIT_CARD
 import cesar1287.com.github.desafiopicpay.core.util.Payment.KEY_EXTRA_TRANSACTION
+import cesar1287.com.github.desafiopicpay.extensions.getLast4CreditCardNumbers
 import cesar1287.com.github.desafiopicpay.extensions.toBRL
 import cesar1287.com.github.desafiopicpay.extensions.toFormattedDate
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -35,7 +36,7 @@ class ReceiptBottomSheetFragment : BottomSheetDialogFragment() {
                 tvReceiptDate.text = transactionResponseNonNull.transaction.timestamp.toFormattedDate()
                 tvReceiptTransactionId.text = transactionResponseNonNull.transaction.id.toString()
 
-                tvReceiptCreditCard.text = "Cartão Master ${it.cardNumber?.substring(12, 16)}"
+                tvReceiptCreditCard.text = "Cartão Master ${it.cardNumber?.getLast4CreditCardNumbers()}"
                 tvReceiptCreditCardValue.text = transactionResponseNonNull.transaction.value.toBRL()
                 tvReceiptTotalValue.text = transactionResponseNonNull.transaction.value.toBRL()
             }

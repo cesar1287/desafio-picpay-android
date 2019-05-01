@@ -21,6 +21,7 @@ import cesar1287.com.github.desafiopicpay.core.util.Payment.API_EXPIRY_DATE
 import cesar1287.com.github.desafiopicpay.core.util.Payment.API_VALUE
 import cesar1287.com.github.desafiopicpay.core.util.Payment.KEY_EXTRA_CREDIT_CARD
 import cesar1287.com.github.desafiopicpay.core.util.Payment.KEY_EXTRA_TRANSACTION
+import cesar1287.com.github.desafiopicpay.extensions.getLast4CreditCardNumbers
 import cesar1287.com.github.desafiopicpay.features.BaseActivity
 import cesar1287.com.github.desafiopicpay.features.creditCard.activity.CreditCardActivity
 import cesar1287.com.github.desafiopicpay.features.creditCard.viewmodel.CreditCardViewModel
@@ -58,6 +59,25 @@ class PaymentActivity : BaseActivity() {
             }
             Status.SUCCESS -> {
                 startReceiptBottomSheet(resource)
+            }
+        }
+    }
+
+    private fun processCreditCarList(it: List<CreditCard>?) {
+        it?.let { creditCardList ->
+            creditCardList.firstOrNull()?.let {
+                creditCard = CreditCard().apply {
+                    cardNumber = it.cardNumber
+                    cvv = it.cvv
+                    expiryDate = it.expiryDate
+                }
+
+                tvPaymentCreditCard.visibility = View.VISIBLE
+                tvPaymentEdit.visibility = View.VISIBLE
+                tvPaymentCreditCard.text = "Mastercard ${creditCard.cardNumber?.getLast4CreditCardNumbers()} •"
+            } ?: run {
+                tvPaymentCreditCard.visibility = View.GONE
+                tvPaymentEdit.visibility = View.GONE
             }
         }
     }
@@ -105,6 +125,10 @@ class PaymentActivity : BaseActivity() {
         paymentViewModel?.paymentLiveData?.observe(this, Observer { resource ->
             processApiReturn(resource)
         })
+
+        creditCardViewModel?.allCreditCards?.observe(this, Observer {
+            processCreditCarList(it)
+        })
     }
 
     private fun setupOnStart() {
@@ -115,10 +139,6 @@ class PaymentActivity : BaseActivity() {
             GlideApp.with(this).load(it.img).into(ivPaymentAvatar)
         }
 
-        creditCard = CreditCard().apply {
-            cardNumber = "1111111111111111"
-            cvv = "789"
-            expiryDate = "01/18"
-        }
+        creditCardViewModel?.getAllCreditCards()
     }
 }
