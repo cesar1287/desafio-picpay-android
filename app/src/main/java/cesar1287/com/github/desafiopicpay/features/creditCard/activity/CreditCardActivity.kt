@@ -13,6 +13,7 @@ import cesar1287.com.github.desafiopicpay.core.util.CreditCard.KEY_HASH_ID
 import cesar1287.com.github.desafiopicpay.core.util.CreditCard.KEY_HASH_NAME
 import cesar1287.com.github.desafiopicpay.core.util.MaskWatcher
 import cesar1287.com.github.desafiopicpay.core.util.Payment.KEY_EXTRA_CREDIT_CARD
+import cesar1287.com.github.desafiopicpay.extensions.showToast
 import cesar1287.com.github.desafiopicpay.features.BaseActivity
 import cesar1287.com.github.desafiopicpay.features.creditCard.viewmodel.CreditCardViewModel
 import kotlinx.android.synthetic.main.activity_credit_card.*
@@ -61,7 +62,7 @@ class CreditCardActivity : BaseActivity() {
             )
 
             creditCardViewModel?.save(creditCardHashMap)
-            Toast.makeText(this@CreditCardActivity, "Cartão salvo com sucesso", Toast.LENGTH_SHORT).show()
+            showToast("Cartão salvo com sucesso", Toast.LENGTH_SHORT)
             finish()
         }
     }

@@ -26,6 +26,7 @@ import cesar1287.com.github.desafiopicpay.core.util.Payment.KEY_EXTRA_CREDIT_CAR
 import cesar1287.com.github.desafiopicpay.core.util.Payment.KEY_EXTRA_TRANSACTION
 import cesar1287.com.github.desafiopicpay.extensions.brlToDouble
 import cesar1287.com.github.desafiopicpay.extensions.getLast4CreditCardNumbers
+import cesar1287.com.github.desafiopicpay.extensions.showSnackBar
 import cesar1287.com.github.desafiopicpay.features.BaseActivity
 import cesar1287.com.github.desafiopicpay.features.creditCard.activity.CreditCardActivity
 import cesar1287.com.github.desafiopicpay.features.creditCard.activity.CreditCardCoverActivity
@@ -61,7 +62,7 @@ class PaymentActivity : BaseActivity() {
         setupLoadingApiCall(View.GONE)
         when (resource?.status) {
             Status.ERROR -> {
-                Snackbar.make(btPaymentPay, resource.message?.let { it } ?: ERROR_DEFAULT, Snackbar.LENGTH_SHORT).show()
+                btPaymentPay.showSnackBar(resource.message?.let { it } ?: ERROR_DEFAULT, Snackbar.LENGTH_SHORT)
             }
             Status.SUCCESS -> {
                 startReceiptBottomSheet(resource)
