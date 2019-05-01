@@ -1,5 +1,6 @@
 package cesar1287.com.github.desafiopicpay.features.payment.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
@@ -21,6 +22,7 @@ import cesar1287.com.github.desafiopicpay.core.util.Payment.API_VALUE
 import cesar1287.com.github.desafiopicpay.core.util.Payment.KEY_EXTRA_CREDIT_CARD
 import cesar1287.com.github.desafiopicpay.core.util.Payment.KEY_EXTRA_TRANSACTION
 import cesar1287.com.github.desafiopicpay.features.BaseActivity
+import cesar1287.com.github.desafiopicpay.features.creditCard.activity.CreditCardActivity
 import cesar1287.com.github.desafiopicpay.features.creditCard.viewmodel.CreditCardViewModel
 import cesar1287.com.github.desafiopicpay.features.payment.viewmodel.PaymentViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -37,24 +39,15 @@ class PaymentActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment)
 
-        setupObservables()
         setupToolbar(tbPaymentToolbar)
-        setupOnStart()
+        setupViewModel()
+        setupObservables()
     }
 
-    private fun setupObservables() {
-        paymentViewModel = ViewModelProviders.of(this).get(PaymentViewModel::class.java)
-        creditCardViewModel = ViewModelProviders.of(this).get(CreditCardViewModel::class.java)
+    override fun onResume() {
+        super.onResume()
 
-        btPaymentPay.setOnClickListener {
-            setupLoadingApiCall(View.VISIBLE)
-            val body = setupHashMapToApi()
-            paymentViewModel?.insertTransaction(body)
-        }
-
-        paymentViewModel?.paymentLiveData?.observe(this, Observer { resource ->
-            processApiReturn(resource)
-        })
+        setupOnStart()
     }
 
     private fun processApiReturn(resource: Resource?) {
@@ -91,6 +84,27 @@ class PaymentActivity : BaseActivity() {
             API_DESTINATION_USER_ID to (user?.id ?: 0),
             API_VALUE to 79.9
         )
+    }
+
+    private fun setupViewModel() {
+        paymentViewModel = ViewModelProviders.of(this).get(PaymentViewModel::class.java)
+        creditCardViewModel = ViewModelProviders.of(this).get(CreditCardViewModel::class.java)
+    }
+
+    private fun setupObservables() {
+        btPaymentPay.setOnClickListener {
+            setupLoadingApiCall(View.VISIBLE)
+            val body = setupHashMapToApi()
+            paymentViewModel?.insertTransaction(body)
+        }
+
+        btPaymentRegisterCreditCard.setOnClickListener {
+            startActivity(Intent(this@PaymentActivity, CreditCardActivity::class.java))
+        }
+
+        paymentViewModel?.paymentLiveData?.observe(this, Observer { resource ->
+            processApiReturn(resource)
+        })
     }
 
     private fun setupOnStart() {

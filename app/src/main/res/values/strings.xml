@@ -25,4 +25,6 @@
     <string name="payment_default_value">0,00</string>
     <string name="receipt_label">Recibo</string>
     <string name="receipt_total">Total pago</string>
+    <string name="payment_edit">Editar</string>
+    <string name="payment_register_credit_card">Cadastrar cartão</string>
 </resources>

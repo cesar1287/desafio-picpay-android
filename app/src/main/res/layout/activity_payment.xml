@@ -69,6 +69,58 @@
                 style="@style/Monetary"
         />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/tvPaymentValue"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/xlargeMargin"
+        >
+
+            <TextView
+                    android:id="@+id/tvPaymentCreditCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Mastercard 1234 •"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tvPaymentEdit"
+                    app:layout_constraintBottom_toTopOf="@+id/btPaymentRegisterCreditCard"
+                    style="@style/Subtitle"
+            />
+
+            <TextView
+                    android:id="@+id/tvPaymentEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/tvPaymentCreditCard"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tvPaymentCreditCard"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/btPaymentRegisterCreditCard"
+                    android:layout_marginTop="@dimen/xlargeMargin"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/payment_edit"
+                    android:textAllCaps="true"
+                    android:background="?selectableItemBackground"
+                    style="@style/Edit"
+            />
+
+            <Button
+                    android:id="@+id/btPaymentRegisterCreditCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tvPaymentCreditCard"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="@dimen/defaultMargin"
+                    android:padding="@dimen/minimumMargin"
+                    android:text="@string/payment_register_credit_card"
+                    style="@style/ButtonDefault"
+            />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <Button
                 android:id="@+id/btPaymentPay"
                 android:layout_width="match_parent"

@@ -27,6 +27,11 @@
         <item name="android:textColor">@color/title_white</item>
     </style>
 
+    <style name="Edit">
+        <item name="android:textSize">@dimen/default_subtitle_size</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
     <style name="ReceiptTransaction">
         <item name="android:textSize">@dimen/receipt_transaction_size</item>
         <item name="android:textColor">@color/title_white</item>
