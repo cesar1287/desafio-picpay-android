@@ -5,9 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import cesar1287.com.github.desafiopicpay.R
-import cesar1287.com.github.desafiopicpay.core.model.TransationResponse
+import cesar1287.com.github.desafiopicpay.core.model.CreditCard
+import cesar1287.com.github.desafiopicpay.core.model.TransactionResponse
 import cesar1287.com.github.desafiopicpay.core.util.GlideApp
+import cesar1287.com.github.desafiopicpay.core.util.Payment.KEY_EXTRA_CREDIT_CARD
 import cesar1287.com.github.desafiopicpay.core.util.Payment.KEY_EXTRA_TRANSACTION
+import cesar1287.com.github.desafiopicpay.extensions.toBRL
+import cesar1287.com.github.desafiopicpay.extensions.toFormattedDate
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.receipt_bottom_sheet.*
 
@@ -20,16 +24,21 @@ class ReceiptBottomSheetFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val transationResponse = arguments?.get(KEY_EXTRA_TRANSACTION) as? TransationResponse
+        val transactionResponse = arguments?.get(KEY_EXTRA_TRANSACTION) as? TransactionResponse
+        val creditCard = arguments?.get(KEY_EXTRA_CREDIT_CARD) as? CreditCard
 
-        transationResponse?.let {
-            GlideApp.with(this).load(it.transaction.destinationUser.img).into(ivReceiptAvatar)
+        transactionResponse?.let { transactionResponseNonNull ->
+            creditCard?.let {
+                GlideApp.with(this).load(transactionResponseNonNull.transaction.destinationUser.img).into(ivReceiptAvatar)
 
-            tvReceiptUsername.text = it.transaction.destinationUser.username
-            tvReceiptDate.text = it.transaction.timestamp.toString()
-            tvReceiptTransactionId.text = it.transaction.id.toString()
-            tvReceiptCreditCardValue.text = it.transaction.value.toString()
-            tvReceiptTotalValue.text = it.transaction.value.toString()
+                tvReceiptUsername.text = transactionResponseNonNull.transaction.destinationUser.username
+                tvReceiptDate.text = transactionResponseNonNull.transaction.timestamp.toFormattedDate()
+                tvReceiptTransactionId.text = transactionResponseNonNull.transaction.id.toString()
+
+                tvReceiptCreditCard.text = "Cartão Master ${it.cardNumber?.substring(12, 16)}"
+                tvReceiptCreditCardValue.text = transactionResponseNonNull.transaction.value.toBRL()
+                tvReceiptTotalValue.text = transactionResponseNonNull.transaction.value.toBRL()
+            }
         }
     }
 }
