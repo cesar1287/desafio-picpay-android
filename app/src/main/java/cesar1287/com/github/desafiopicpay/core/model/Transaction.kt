@@ -15,7 +15,7 @@ data class Transaction(
     @SerializedName("success")
     val success: Boolean,
     @SerializedName("timestamp")
-    val timestamp: Int,
+    val timestamp: Long,
     @SerializedName("value")
     val value: Double
 ) : Parcelable
