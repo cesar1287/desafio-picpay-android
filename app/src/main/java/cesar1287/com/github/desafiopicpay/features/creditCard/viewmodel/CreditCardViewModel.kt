@@ -1,7 +1,6 @@
 package cesar1287.com.github.desafiopicpay.features.creditCard.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import cesar1287.com.github.desafiopicpay.core.database.PicPayDatabase
 import cesar1287.com.github.desafiopicpay.core.model.CreditCard
@@ -10,20 +9,11 @@ import cesar1287.com.github.desafiopicpay.core.util.CreditCard.KEY_HASH_CARD_NUM
 import cesar1287.com.github.desafiopicpay.core.util.CreditCard.KEY_HASH_CVV
 import cesar1287.com.github.desafiopicpay.core.util.CreditCard.KEY_HASH_EXPIRY_DATE
 import cesar1287.com.github.desafiopicpay.core.util.CreditCard.KEY_HASH_NAME
-import kotlinx.coroutines.CoroutineScope
+import cesar1287.com.github.desafiopicpay.features.BaseViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
 
-class CreditCardViewModel(application: Application) : AndroidViewModel(application) {
-
-    private var parentJob = Job()
-
-    private val coroutineContext: CoroutineContext
-        get() = parentJob + Dispatchers.Main
-
-    private val scope = CoroutineScope(coroutineContext)
+class CreditCardViewModel(application: Application) : BaseViewModel(application) {
 
     private val repository: CreditCardRepository
 
@@ -54,10 +44,5 @@ class CreditCardViewModel(application: Application) : AndroidViewModel(applicati
         scope.launch(Dispatchers.IO) {
             allCreditCards.postValue(repository.getAllCreditCards())
         }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        parentJob.cancel()
     }
 }

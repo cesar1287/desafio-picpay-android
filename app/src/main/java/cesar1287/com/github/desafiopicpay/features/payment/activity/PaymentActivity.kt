@@ -102,7 +102,7 @@ class PaymentActivity : BaseActivity() {
         }
 
         creditCard = CreditCard().apply {
-            cardNumber = "1111111111111112"
+            cardNumber = "1111111111111111"
             cvv = "789"
             expiryDate = "01/18"
         }
