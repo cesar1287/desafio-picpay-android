@@ -45,7 +45,7 @@
         />
 
         <EditText
-                android:id="@+id/tvPaymentValue"
+                android:id="@+id/etPaymentValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/tvPaymentUsername"
@@ -62,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/tvPaymentUsername"
-                app:layout_constraintEnd_toStartOf="@id/tvPaymentValue"
+                app:layout_constraintEnd_toStartOf="@id/etPaymentValue"
                 android:layout_marginEnd="@dimen/minimumMargin"
                 android:layout_marginTop="@dimen/xxxlargeMargin"
                 android:text="@string/payment_monetary_mask"
@@ -72,7 +72,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/tvPaymentValue"
+                app:layout_constraintTop_toBottomOf="@+id/etPaymentValue"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/xlargeMargin"

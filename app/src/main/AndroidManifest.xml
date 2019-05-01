@@ -14,7 +14,10 @@
             android:usesCleartextTraffic="true">
         <activity android:name=".features.payment.activity.PaymentActivity">
         </activity>
-        <activity android:name=".features.creditCard.activity.CreditCardCoverActivity"/>
+        <activity
+                android:name=".features.creditCard.activity.CreditCardCoverActivity"
+                android:noHistory="true"
+        />
         <activity android:name=".features.creditCard.activity.CreditCardActivity"/>
         <activity android:name=".features.home.activity.MainActivity">
             <intent-filter>

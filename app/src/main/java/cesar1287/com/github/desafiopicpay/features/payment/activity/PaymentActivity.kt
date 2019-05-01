@@ -14,6 +14,7 @@ import cesar1287.com.github.desafiopicpay.core.model.User
 import cesar1287.com.github.desafiopicpay.core.util.Error.ERROR_DEFAULT
 import cesar1287.com.github.desafiopicpay.core.util.GlideApp
 import cesar1287.com.github.desafiopicpay.core.util.Home.KEY_EXTRA_USER
+import cesar1287.com.github.desafiopicpay.core.util.MoneyTextWatcher
 import cesar1287.com.github.desafiopicpay.core.util.Payment.API_CARD_NUMBER
 import cesar1287.com.github.desafiopicpay.core.util.Payment.API_CVV
 import cesar1287.com.github.desafiopicpay.core.util.Payment.API_DESTINATION_USER_ID
@@ -24,10 +25,12 @@ import cesar1287.com.github.desafiopicpay.core.util.Payment.KEY_EXTRA_TRANSACTIO
 import cesar1287.com.github.desafiopicpay.extensions.getLast4CreditCardNumbers
 import cesar1287.com.github.desafiopicpay.features.BaseActivity
 import cesar1287.com.github.desafiopicpay.features.creditCard.activity.CreditCardActivity
+import cesar1287.com.github.desafiopicpay.features.creditCard.activity.CreditCardCoverActivity
 import cesar1287.com.github.desafiopicpay.features.creditCard.viewmodel.CreditCardViewModel
 import cesar1287.com.github.desafiopicpay.features.payment.viewmodel.PaymentViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_payment.*
+import java.lang.ref.WeakReference
 
 class PaymentActivity : BaseActivity() {
 
@@ -121,6 +124,8 @@ class PaymentActivity : BaseActivity() {
     }
 
     private fun setupObservables() {
+        etPaymentValue.addTextChangedListener(MoneyTextWatcher(WeakReference(etPaymentValue)))
+
         btPaymentPay.setOnClickListener {
             setupLoadingApiCall(View.VISIBLE)
             val body = setupHashMapToApi()
@@ -128,7 +133,7 @@ class PaymentActivity : BaseActivity() {
         }
 
         btPaymentRegisterCreditCard.setOnClickListener {
-            startActivity(Intent(this@PaymentActivity, CreditCardActivity::class.java))
+            startActivity(Intent(this@PaymentActivity, CreditCardCoverActivity::class.java))
         }
 
         tvPaymentEdit.setOnClickListener {

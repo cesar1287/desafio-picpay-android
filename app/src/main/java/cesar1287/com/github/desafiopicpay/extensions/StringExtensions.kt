@@ -7,3 +7,7 @@ fun String.getLast4CreditCardNumbers(): String {
         ""
     }
 }
+
+fun String.replaceDesiredToBlank(regex: String): String {
+    return this.replace(regex, "")
+}
