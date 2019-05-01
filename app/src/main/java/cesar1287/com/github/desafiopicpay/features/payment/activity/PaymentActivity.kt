@@ -66,22 +66,29 @@ class PaymentActivity : BaseActivity() {
     private fun processCreditCarList(it: List<CreditCard>?) {
         it?.let { creditCardList ->
             creditCardList.firstOrNull()?.let {
-                creditCard = CreditCard().apply {
-                    cardNumber = it.cardNumber
-                    cvv = it.cvv
-                    expiryDate = it.expiryDate
-                    name = it.name
-                    id = it.id
-                }
+                setupFirstCreditCard(it)
 
-                tvPaymentCreditCard.visibility = View.VISIBLE
-                tvPaymentEdit.visibility = View.VISIBLE
+                setVisibilityContainerSelectedCreditCard(View.VISIBLE)
                 tvPaymentCreditCard.text = "Mastercard ${creditCard.cardNumber?.getLast4CreditCardNumbers()} •"
             } ?: run {
-                tvPaymentCreditCard.visibility = View.GONE
-                tvPaymentEdit.visibility = View.GONE
+                setVisibilityContainerSelectedCreditCard(View.GONE)
             }
         }
+    }
+
+    private fun setupFirstCreditCard(it: CreditCard) {
+        creditCard = CreditCard().apply {
+            cardNumber = it.cardNumber
+            cvv = it.cvv
+            expiryDate = it.expiryDate
+            name = it.name
+            id = it.id
+        }
+    }
+
+    private fun setVisibilityContainerSelectedCreditCard(visibility: Int) {
+        tvPaymentCreditCard.visibility = visibility
+        tvPaymentEdit.visibility = visibility
     }
 
     private fun setupLoadingApiCall(visibility : Int) {
