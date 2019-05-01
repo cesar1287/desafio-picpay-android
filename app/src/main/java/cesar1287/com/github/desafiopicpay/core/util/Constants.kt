@@ -5,7 +5,7 @@ object Api {
 }
 
 object Error {
-    const val ERROR_DEFAULT = "unknown error"
+    const val ERROR_DEFAULT = "Erro desconhecido, por favor, tente novamente"
 }
 
 object CreditCard {

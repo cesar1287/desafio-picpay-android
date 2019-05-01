@@ -2,6 +2,7 @@ package cesar1287.com.github.desafiopicpay.features.creditCard.activity
 
 import android.os.Bundle
 import android.text.Editable
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import cesar1287.com.github.desafiopicpay.R
 import cesar1287.com.github.desafiopicpay.core.model.CreditCard
@@ -55,6 +56,8 @@ class CreditCardActivity : BaseActivity() {
             )
 
             creditCardViewModel?.save(creditCardHashMap)
+            Toast.makeText(this@CreditCardActivity, "Cartão salvo com sucesso", Toast.LENGTH_SHORT).show()
+            finish()
         }
     }
 }
