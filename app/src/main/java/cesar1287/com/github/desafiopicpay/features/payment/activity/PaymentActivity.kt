@@ -70,6 +70,8 @@ class PaymentActivity : BaseActivity() {
                     cardNumber = it.cardNumber
                     cvv = it.cvv
                     expiryDate = it.expiryDate
+                    name = it.name
+                    id = it.id
                 }
 
                 tvPaymentCreditCard.visibility = View.VISIBLE
@@ -120,6 +122,12 @@ class PaymentActivity : BaseActivity() {
 
         btPaymentRegisterCreditCard.setOnClickListener {
             startActivity(Intent(this@PaymentActivity, CreditCardActivity::class.java))
+        }
+
+        tvPaymentEdit.setOnClickListener {
+            val intent = Intent(this@PaymentActivity, CreditCardActivity::class.java)
+            intent.putExtra(KEY_EXTRA_CREDIT_CARD, creditCard)
+            startActivity(intent)
         }
 
         paymentViewModel?.paymentLiveData?.observe(this, Observer { resource ->

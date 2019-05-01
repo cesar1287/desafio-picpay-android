@@ -13,6 +13,7 @@ object CreditCard {
     const val KEY_HASH_NAME = "name"
     const val KEY_HASH_EXPIRY_DATE = "expiryDate"
     const val KEY_HASH_CVV = "cvv"
+    const val KEY_HASH_ID = "id"
 }
 
 object Home {

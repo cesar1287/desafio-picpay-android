@@ -8,6 +8,7 @@ import cesar1287.com.github.desafiopicpay.core.repository.creditCard.CreditCardR
 import cesar1287.com.github.desafiopicpay.core.util.CreditCard.KEY_HASH_CARD_NUMBER
 import cesar1287.com.github.desafiopicpay.core.util.CreditCard.KEY_HASH_CVV
 import cesar1287.com.github.desafiopicpay.core.util.CreditCard.KEY_HASH_EXPIRY_DATE
+import cesar1287.com.github.desafiopicpay.core.util.CreditCard.KEY_HASH_ID
 import cesar1287.com.github.desafiopicpay.core.util.CreditCard.KEY_HASH_NAME
 import cesar1287.com.github.desafiopicpay.features.BaseViewModel
 import kotlinx.coroutines.Dispatchers
@@ -25,12 +26,13 @@ class CreditCardViewModel(application: Application) : BaseViewModel(application)
         repository = CreditCardRepository(creditCardDao)
     }
 
-    fun save(creditCardHashMap: HashMap<String, String>) {
+    fun save(creditCardHashMap: HashMap<String, Any?>) {
         val creditCard = CreditCard(
-            name = creditCardHashMap[KEY_HASH_NAME],
-            cardNumber = creditCardHashMap[KEY_HASH_CARD_NUMBER],
-            cvv = creditCardHashMap[KEY_HASH_CVV],
-            expiryDate = creditCardHashMap[KEY_HASH_EXPIRY_DATE]
+            name = creditCardHashMap[KEY_HASH_NAME] as? String,
+            cardNumber = creditCardHashMap[KEY_HASH_CARD_NUMBER] as? String,
+            cvv = creditCardHashMap[KEY_HASH_CVV] as? String,
+            expiryDate = creditCardHashMap[KEY_HASH_EXPIRY_DATE] as? String,
+            id = creditCardHashMap[KEY_HASH_ID] as? Int
         )
 
         insert(creditCard)
