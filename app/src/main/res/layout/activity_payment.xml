@@ -68,6 +68,7 @@
                     android:inputType="numberDecimal|textMultiLine"
                     android:text="@string/payment_default_value"
                     style="@style/ValuePayment"
+                    android:alpha="0.4"
             />
 
             <TextView
@@ -81,6 +82,7 @@
                     android:layout_marginEnd="@dimen/minimumMargin"
                     android:text="@string/payment_monetary_mask"
                     style="@style/Monetary"
+                    android:alpha="0.4"
             />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -146,7 +148,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                style="@style/ButtonDefault"
+                style="@style/ButtonDefaultDisabled"
+                android:enabled="false"
         />
 
         <ProgressBar

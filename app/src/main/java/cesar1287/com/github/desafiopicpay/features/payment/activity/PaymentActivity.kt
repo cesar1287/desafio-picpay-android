@@ -3,6 +3,8 @@ package cesar1287.com.github.desafiopicpay.features.payment.activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import cesar1287.com.github.desafiopicpay.R
@@ -22,6 +24,7 @@ import cesar1287.com.github.desafiopicpay.core.util.Payment.API_EXPIRY_DATE
 import cesar1287.com.github.desafiopicpay.core.util.Payment.API_VALUE
 import cesar1287.com.github.desafiopicpay.core.util.Payment.KEY_EXTRA_CREDIT_CARD
 import cesar1287.com.github.desafiopicpay.core.util.Payment.KEY_EXTRA_TRANSACTION
+import cesar1287.com.github.desafiopicpay.extensions.brlToDouble
 import cesar1287.com.github.desafiopicpay.extensions.getLast4CreditCardNumbers
 import cesar1287.com.github.desafiopicpay.features.BaseActivity
 import cesar1287.com.github.desafiopicpay.features.creditCard.activity.CreditCardActivity
@@ -114,7 +117,7 @@ class PaymentActivity : BaseActivity() {
             API_CVV to (creditCard.cvv?.toInt() ?: 0),
             API_EXPIRY_DATE to (creditCard.expiryDate ?: "00/00"),
             API_DESTINATION_USER_ID to (user?.id ?: 0),
-            API_VALUE to 79.9
+            API_VALUE to etPaymentValue.text.toString().brlToDouble()
         )
     }
 
@@ -125,6 +128,21 @@ class PaymentActivity : BaseActivity() {
 
     private fun setupObservables() {
         etPaymentValue.addTextChangedListener(MoneyTextWatcher(WeakReference(etPaymentValue)))
+        etPaymentValue.doOnTextChanged { text, _, _, after ->
+            val buttonBackground = paymentViewModel?.getResourceByValue(text.toString(), after) ?: R.drawable.custom_buttom
+            if (buttonBackground == R.drawable.custom_buttom) {
+                tvPaymentMonetaryMask.setTextColor(ContextCompat.getColor(this, R.color.colorAccent))
+                etPaymentValue.setTextColor(ContextCompat.getColor(this, R.color.colorAccent))
+                btPaymentPay.isEnabled = true
+            } else {
+                btPaymentPay.isEnabled = false
+                tvPaymentMonetaryMask.setTextColor(ContextCompat.getColor(this, R.color.title_white))
+                tvPaymentMonetaryMask.alpha = 0.4f
+                etPaymentValue.setTextColor(ContextCompat.getColor(this, R.color.title_white))
+                etPaymentValue.alpha = 0.4f
+            }
+            btPaymentPay.setBackgroundResource(buttonBackground)
+        }
 
         btPaymentPay.setOnClickListener {
             setupLoadingApiCall(View.VISIBLE)

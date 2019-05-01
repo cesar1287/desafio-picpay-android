@@ -26,7 +26,7 @@ class MoneyTextWatcher(private var editTextWeakReference: WeakReference<EditText
         val locale = Locale("pt", "BR")
 
         val parsed = parseToBigDecimal(editable.toString(), locale)
-        val formatted = NumberFormat.getCurrencyInstance(locale).format(parsed).replaceDesiredToBlank("R$")
+        val formatted = NumberFormat.getCurrencyInstance(locale).format(parsed).replaceDesiredToBlank("R$").trim()
 
         editText.setText(formatted)
         editText.setSelection(formatted.length)

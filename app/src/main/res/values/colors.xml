@@ -3,6 +3,8 @@
     <color name="colorPrimary">#1D1E20</color>
     <color name="colorPrimaryDark">#1D1E20</color>
     <color name="colorAccent">#11C76F</color>
+
+    <color name="button_disabled">#8F929D</color>
     
     <color name="title_white">#FFFFFF</color>
     <color name="hint_text_input">#64FFFFFF</color>
