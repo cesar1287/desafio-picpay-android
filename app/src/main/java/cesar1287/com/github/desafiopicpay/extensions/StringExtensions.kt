@@ -5,7 +5,7 @@ import java.util.*
 
 fun String.getLast4CreditCardNumbers(): String {
     return try {
-        this.substring(12, 16)
+        this.substring(this.length - 4, this.length)
     } catch (indexOutOfBounds: IndexOutOfBoundsException) {
         ""
     }

@@ -62,7 +62,7 @@ class PaymentActivity : BaseActivity() {
         setupLoadingApiCall(View.GONE)
         when (resource?.status) {
             Status.ERROR -> {
-                btPaymentPay.showSnackBar(resource.message?.let { it } ?: ERROR_DEFAULT, Snackbar.LENGTH_SHORT)
+                btPaymentPay.showSnackBar(this, resource.message?.let { it } ?: ERROR_DEFAULT, Snackbar.LENGTH_SHORT)
             }
             Status.SUCCESS -> {
                 startReceiptBottomSheet(resource)
