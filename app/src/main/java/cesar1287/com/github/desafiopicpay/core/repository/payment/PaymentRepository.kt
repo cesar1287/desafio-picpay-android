@@ -8,7 +8,8 @@ class PaymentRepository(private val api : PicpayApi) : BaseRepository() {
 
     suspend fun insertTransaction(body: HashMap<String, Any>) : Resource {
         return safeApiCall(
-            call = { api.insertTransaction(body).await() }
+            call = { api.insertTransaction(body).await() },
+            isTransaction = true
         )
     }
 }

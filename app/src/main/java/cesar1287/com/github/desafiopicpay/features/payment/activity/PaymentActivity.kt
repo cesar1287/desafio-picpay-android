@@ -1,7 +1,7 @@
 package cesar1287.com.github.desafiopicpay.features.payment.activity
 
 import android.os.Bundle
-import android.util.Log
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import cesar1287.com.github.desafiopicpay.R
@@ -9,6 +9,7 @@ import cesar1287.com.github.desafiopicpay.core.api.Status
 import cesar1287.com.github.desafiopicpay.core.model.CreditCard
 import cesar1287.com.github.desafiopicpay.core.model.TransactionResponse
 import cesar1287.com.github.desafiopicpay.core.model.User
+import cesar1287.com.github.desafiopicpay.core.util.Error.ERROR_DEFAULT
 import cesar1287.com.github.desafiopicpay.core.util.GlideApp
 import cesar1287.com.github.desafiopicpay.core.util.Home.KEY_EXTRA_USER
 import cesar1287.com.github.desafiopicpay.core.util.Payment.API_CARD_NUMBER
@@ -19,12 +20,15 @@ import cesar1287.com.github.desafiopicpay.core.util.Payment.API_VALUE
 import cesar1287.com.github.desafiopicpay.core.util.Payment.KEY_EXTRA_CREDIT_CARD
 import cesar1287.com.github.desafiopicpay.core.util.Payment.KEY_EXTRA_TRANSACTION
 import cesar1287.com.github.desafiopicpay.features.BaseActivity
+import cesar1287.com.github.desafiopicpay.features.creditCard.viewmodel.CreditCardViewModel
 import cesar1287.com.github.desafiopicpay.features.payment.viewmodel.PaymentViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_payment.*
 
 class PaymentActivity : BaseActivity() {
 
     private var paymentViewModel : PaymentViewModel? = null
+    private var creditCardViewModel : CreditCardViewModel? = null
     private var user : User? = null
     private lateinit var creditCard : CreditCard
 
@@ -34,17 +38,12 @@ class PaymentActivity : BaseActivity() {
 
         setupObservables()
         setupToolbar(tbPaymentToolbar)
-        setupUser()
-
-        creditCard = CreditCard().apply {
-            cardNumber = "1111111111111111"
-            cvv = "789"
-            expiryDate = "01/18"
-        }
+        setupOnStart()
     }
 
     private fun setupObservables() {
         paymentViewModel = ViewModelProviders.of(this).get(PaymentViewModel::class.java)
+        creditCardViewModel = ViewModelProviders.of(this).get(CreditCardViewModel::class.java)
 
         btPaymentPay.setOnClickListener {
             val body = hashMapOf(
@@ -55,15 +54,15 @@ class PaymentActivity : BaseActivity() {
                 API_VALUE to 79.9
             )
 
-            //todo verificar na response se a transação foi recusada
-
+            pbPaymentApiLoading.visibility = View.VISIBLE
             paymentViewModel?.insertTransaction(body)
         }
 
         paymentViewModel?.paymentLiveData?.observe(this, Observer { resource ->
+            pbPaymentApiLoading.visibility = View.GONE
             when (resource?.status) {
                 Status.ERROR -> {
-                    Log.i("teste", "erro")
+                    Snackbar.make(btPaymentPay, resource.message?.let { it } ?: ERROR_DEFAULT, Snackbar.LENGTH_SHORT).show()
                 }
                 Status.SUCCESS -> {
                     val bundle = Bundle().apply {
@@ -78,12 +77,18 @@ class PaymentActivity : BaseActivity() {
         })
     }
 
-    private fun setupUser() {
+    private fun setupOnStart() {
         user = intent.getParcelableExtra(KEY_EXTRA_USER)
 
         user?.let {
             tvPaymentUsername.text = it.username
             GlideApp.with(this).load(it.img).into(ivPaymentAvatar)
+        }
+
+        creditCard = CreditCard().apply {
+            cardNumber = "1111111111111111"
+            cvv = "789"
+            expiryDate = "01/18"
         }
     }
 }
