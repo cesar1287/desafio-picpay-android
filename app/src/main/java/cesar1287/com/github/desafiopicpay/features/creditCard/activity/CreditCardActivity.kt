@@ -11,6 +11,7 @@ import cesar1287.com.github.desafiopicpay.core.util.CreditCard.KEY_HASH_CVV
 import cesar1287.com.github.desafiopicpay.core.util.CreditCard.KEY_HASH_EXPIRY_DATE
 import cesar1287.com.github.desafiopicpay.core.util.CreditCard.KEY_HASH_ID
 import cesar1287.com.github.desafiopicpay.core.util.CreditCard.KEY_HASH_NAME
+import cesar1287.com.github.desafiopicpay.core.util.MaskWatcher
 import cesar1287.com.github.desafiopicpay.core.util.Payment.KEY_EXTRA_CREDIT_CARD
 import cesar1287.com.github.desafiopicpay.features.BaseActivity
 import cesar1287.com.github.desafiopicpay.features.creditCard.viewmodel.CreditCardViewModel
@@ -45,6 +46,10 @@ class CreditCardActivity : BaseActivity() {
         creditCardViewModel = ViewModelProviders.of(this).get(CreditCardViewModel::class.java)
 
         creditCardViewModel?.getAllCreditCards()
+
+        tieCreditCardNumber.addTextChangedListener(MaskWatcher(tieCreditCardNumber, "#### #### #### ####"))
+        tieCreditCardExpire.addTextChangedListener(MaskWatcher(tieCreditCardExpire, "##/##"))
+        tieCreditCardCvv.addTextChangedListener(MaskWatcher(tieCreditCardCvv, "###"))
 
         btCreditCardSave.setOnClickListener {
             val creditCardHashMap: HashMap<String, Any?> = hashMapOf(
