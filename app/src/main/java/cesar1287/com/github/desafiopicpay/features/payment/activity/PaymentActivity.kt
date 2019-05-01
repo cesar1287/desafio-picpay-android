@@ -5,6 +5,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import cesar1287.com.github.desafiopicpay.R
+import cesar1287.com.github.desafiopicpay.core.api.Resource
 import cesar1287.com.github.desafiopicpay.core.api.Status
 import cesar1287.com.github.desafiopicpay.core.model.CreditCard
 import cesar1287.com.github.desafiopicpay.core.model.TransactionResponse
@@ -46,35 +47,50 @@ class PaymentActivity : BaseActivity() {
         creditCardViewModel = ViewModelProviders.of(this).get(CreditCardViewModel::class.java)
 
         btPaymentPay.setOnClickListener {
-            val body = hashMapOf(
-                API_CARD_NUMBER to (creditCard.cardNumber ?: "0000"),
-                API_CVV to (creditCard.cvv?.toInt() ?: 0),
-                API_EXPIRY_DATE to (creditCard.expiryDate ?: "00/00"),
-                API_DESTINATION_USER_ID to (user?.id ?: 0),
-                API_VALUE to 79.9
-            )
-
-            pbPaymentApiLoading.visibility = View.VISIBLE
+            setupLoadingApiCall(View.VISIBLE)
+            val body = setupHashMapToApi()
             paymentViewModel?.insertTransaction(body)
         }
 
         paymentViewModel?.paymentLiveData?.observe(this, Observer { resource ->
-            pbPaymentApiLoading.visibility = View.GONE
-            when (resource?.status) {
-                Status.ERROR -> {
-                    Snackbar.make(btPaymentPay, resource.message?.let { it } ?: ERROR_DEFAULT, Snackbar.LENGTH_SHORT).show()
-                }
-                Status.SUCCESS -> {
-                    val bundle = Bundle().apply {
-                        putParcelable(KEY_EXTRA_TRANSACTION, resource.data as? TransactionResponse)
-                        putParcelable(KEY_EXTRA_CREDIT_CARD, creditCard)
-                    }
-                    val bottomSheetFragment = ReceiptBottomSheetFragment()
-                    bottomSheetFragment.arguments = bundle
-                    bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
-                }
-            }
+            processApiReturn(resource)
         })
+    }
+
+    private fun processApiReturn(resource: Resource?) {
+        setupLoadingApiCall(View.GONE)
+        when (resource?.status) {
+            Status.ERROR -> {
+                Snackbar.make(btPaymentPay, resource.message?.let { it } ?: ERROR_DEFAULT, Snackbar.LENGTH_SHORT).show()
+            }
+            Status.SUCCESS -> {
+                startReceiptBottomSheet(resource)
+            }
+        }
+    }
+
+    private fun setupLoadingApiCall(visibility : Int) {
+        pbPaymentApiLoading.visibility = visibility
+    }
+
+    private fun startReceiptBottomSheet(resource: Resource) {
+        val bundle = Bundle().apply {
+            putParcelable(KEY_EXTRA_TRANSACTION, resource.data as? TransactionResponse)
+            putParcelable(KEY_EXTRA_CREDIT_CARD, creditCard)
+        }
+        val bottomSheetFragment = ReceiptBottomSheetFragment()
+        bottomSheetFragment.arguments = bundle
+        bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
+    }
+
+    private fun setupHashMapToApi(): HashMap<String, Any> {
+        return hashMapOf(
+            API_CARD_NUMBER to (creditCard.cardNumber ?: "0000"),
+            API_CVV to (creditCard.cvv?.toInt() ?: 0),
+            API_EXPIRY_DATE to (creditCard.expiryDate ?: "00/00"),
+            API_DESTINATION_USER_ID to (user?.id ?: 0),
+            API_VALUE to 79.9
+        )
     }
 
     private fun setupOnStart() {
@@ -86,7 +102,7 @@ class PaymentActivity : BaseActivity() {
         }
 
         creditCard = CreditCard().apply {
-            cardNumber = "1111111111111111"
+            cardNumber = "1111111111111112"
             cvv = "789"
             expiryDate = "01/18"
         }
