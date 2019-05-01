@@ -8,7 +8,7 @@ import cesar1287.com.github.desafiopicpay.core.model.CreditCard
 
 object PicPayDatabase {
 
-    @Database(entities = [CreditCard::class], version = 3)
+    @Database(entities = [CreditCard::class], version = 1)
     abstract class PicPayRoomDatabase : RoomDatabase() {
         abstract fun creditCardDao(): CreditCardDao
     }
