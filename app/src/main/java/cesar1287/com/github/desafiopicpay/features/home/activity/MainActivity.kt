@@ -1,5 +1,7 @@
 package cesar1287.com.github.desafiopicpay.features.home.activity
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -10,9 +12,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import cesar1287.com.github.desafiopicpay.R
 import cesar1287.com.github.desafiopicpay.core.api.Resource
 import cesar1287.com.github.desafiopicpay.core.api.Status
+import cesar1287.com.github.desafiopicpay.core.model.CreditCard
+import cesar1287.com.github.desafiopicpay.core.model.TransactionResponse
 import cesar1287.com.github.desafiopicpay.core.model.User
+import cesar1287.com.github.desafiopicpay.core.util.Main.KEY_CODE_RECEIPT
+import cesar1287.com.github.desafiopicpay.core.util.Payment.KEY_EXTRA_CREDIT_CARD
+import cesar1287.com.github.desafiopicpay.core.util.Payment.KEY_EXTRA_TRANSACTION
 import cesar1287.com.github.desafiopicpay.features.home.adapter.HomeAdapter
 import cesar1287.com.github.desafiopicpay.features.home.viewmodel.MainViewModel
+import cesar1287.com.github.desafiopicpay.features.payment.activity.ReceiptBottomSheetFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -112,5 +120,22 @@ class MainActivity : AppCompatActivity() {
         rvMainList.layoutManager = layoutManager
         homeAdapter = HomeAdapter(this@MainActivity, usersList)
         rvMainList.adapter = homeAdapter
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == KEY_CODE_RECEIPT && resultCode == Activity.RESULT_OK) {
+            val transactionResponse = data?.getParcelableExtra<TransactionResponse>(KEY_EXTRA_TRANSACTION)
+            val creditCard = data?.getParcelableExtra<CreditCard>(KEY_EXTRA_CREDIT_CARD)
+
+            val bundle = Bundle().apply {
+                putParcelable(KEY_EXTRA_TRANSACTION, transactionResponse)
+                putParcelable(KEY_EXTRA_CREDIT_CARD, creditCard)
+            }
+            val bottomSheetFragment = ReceiptBottomSheetFragment()
+            bottomSheetFragment.arguments = bundle
+            bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
+        }
     }
 }

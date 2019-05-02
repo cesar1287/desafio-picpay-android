@@ -1,5 +1,6 @@
 package cesar1287.com.github.desafiopicpay.features.payment.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -103,13 +104,13 @@ class PaymentActivity : BaseActivity() {
     }
 
     private fun startReceiptBottomSheet(resource: Resource) {
-        val bundle = Bundle().apply {
-            putParcelable(KEY_EXTRA_TRANSACTION, resource.data as? TransactionResponse)
-            putParcelable(KEY_EXTRA_CREDIT_CARD, creditCard)
+        val returnIntent = Intent().apply {
+            putExtra(KEY_EXTRA_TRANSACTION, resource.data as? TransactionResponse)
+            putExtra(KEY_EXTRA_CREDIT_CARD, creditCard)
         }
-        val bottomSheetFragment = ReceiptBottomSheetFragment()
-        bottomSheetFragment.arguments = bundle
-        bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
+
+        setResult(Activity.RESULT_OK, returnIntent)
+        finish()
     }
 
     private fun setupHashMapToApi(): HashMap<String, Any> {

@@ -35,3 +35,7 @@ object Payment {
     const val KEY_EXTRA_TRANSACTION = "transaction"
     const val KEY_EXTRA_CREDIT_CARD = "creditCard"
 }
+
+object Main {
+    const val KEY_CODE_RECEIPT = 1
+}
