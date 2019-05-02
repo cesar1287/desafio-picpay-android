@@ -3,6 +3,7 @@ package cesar1287.com.github.desafiopicpay.core.repository
 import cesar1287.com.github.desafiopicpay.core.api.Resource
 import cesar1287.com.github.desafiopicpay.core.model.TransactionResponse
 import cesar1287.com.github.desafiopicpay.core.util.Error.ERROR_DEFAULT
+import cesar1287.com.github.desafiopicpay.core.util.Error.ERROR_TRANSACTION
 import cesar1287.com.github.desafiopicpay.core.util.ErrorUtils
 import retrofit2.Response
 import java.lang.Exception
@@ -48,7 +49,7 @@ open class BaseRepository{
                     if (it.transaction.success) {
                         Resource.success(response.body())
                     } else {
-                        Resource.error("Transação não autorizada, tente novamente")
+                        Resource.error(ERROR_TRANSACTION)
                     }
                 } ?: run {
                     Resource.error(ERROR_DEFAULT)

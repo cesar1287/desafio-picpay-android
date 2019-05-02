@@ -131,18 +131,19 @@ class PaymentActivity : BaseActivity() {
     private fun setupObservables() {
         etPaymentValue.addTextChangedListener(MoneyTextWatcher(WeakReference(etPaymentValue)))
         etPaymentValue.doOnTextChanged { text, _, _, after ->
-            val buttonBackground = paymentViewModel?.getResourceByValue(text.toString(), after) ?: R.drawable.custom_buttom
-            if (buttonBackground == R.drawable.custom_buttom) {
-                tvPaymentMonetaryMask.setTextColor(ContextCompat.getColor(this, R.color.colorAccent))
-                etPaymentValue.setTextColor(ContextCompat.getColor(this, R.color.colorAccent))
-                btPaymentPay.isEnabled = true
+            val buttonBackground = paymentViewModel?.getResourceByValue(text.toString(), after) ?: R.drawable.custom_button
+
+            if (buttonBackground == R.drawable.custom_button) {
+                setupPaymentScreen(
+                    textColor = ContextCompat.getColor(this, R.color.colorAccent),
+                    isButtonEnabled = true)
             } else {
-                btPaymentPay.isEnabled = false
-                tvPaymentMonetaryMask.setTextColor(ContextCompat.getColor(this, R.color.title_white))
-                tvPaymentMonetaryMask.alpha = 0.4f
-                etPaymentValue.setTextColor(ContextCompat.getColor(this, R.color.title_white))
-                etPaymentValue.alpha = 0.4f
+                setupPaymentScreen(
+                    textColor = ContextCompat.getColor(this, R.color.title_white),
+                    isButtonEnabled = false,
+                    alpha = 0.4f)
             }
+
             btPaymentPay.setBackgroundResource(buttonBackground)
         }
 
@@ -169,6 +170,12 @@ class PaymentActivity : BaseActivity() {
         creditCardViewModel?.allCreditCards?.observe(this, Observer {
             processCreditCarList(it)
         })
+    }
+
+    private fun setupPaymentScreen(textColor: Int, isButtonEnabled: Boolean, alpha: Float? = null) {
+        tvPaymentMonetaryMask.setTextColor(textColor)
+        etPaymentValue.setTextColor(textColor)
+        btPaymentPay.isEnabled = isButtonEnabled
     }
 
     private fun setupOnStart() {

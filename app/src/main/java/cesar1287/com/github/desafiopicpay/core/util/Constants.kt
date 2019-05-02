@@ -6,6 +6,7 @@ object Api {
 
 object Error {
     const val ERROR_DEFAULT = "Erro desconhecido, por favor, tente novamente"
+    const val ERROR_TRANSACTION = "Transação não autorizada, tente novamente"
 }
 
 object CreditCard {

@@ -25,13 +25,13 @@ class PaymentViewModel(application: Application) : BaseViewModel(application) {
 
     fun getResourceByValue(text: String, after: Int): Int {
         if (after == 0) {
-            return R.drawable.custom_buttom_disabled
+            return R.drawable.custom_button_disabled
         }
 
         return if (text.brlToDouble() == 0.0) {
-            R.drawable.custom_buttom_disabled
+            R.drawable.custom_button_disabled
         } else {
-            R.drawable.custom_buttom
+            R.drawable.custom_button
         }
     }
 }

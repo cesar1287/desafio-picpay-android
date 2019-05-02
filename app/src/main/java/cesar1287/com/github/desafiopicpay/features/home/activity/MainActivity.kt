@@ -37,6 +37,15 @@ class MainActivity : AppCompatActivity() {
         setupRecyclerView()
         setupObservables()
         loadContent()
+
+        //todo implementar bottomsheet para escolha de cartão
+        //todo modularizar código e implentar business, se necessário
+
+        //todo ajustar layout da tela principal, para fixar a barra de pesquisa no topo, e scrollar apenas a recyclerView
+        //todo data binding para telas
+        //todo ajustar bottom sheet que fundo fica preto, de pagamento
+        //todo testes unitários
+        //todo testes de interface
     }
 
     private fun setupObservables() {
@@ -83,10 +92,12 @@ class MainActivity : AppCompatActivity() {
         )
         pbMainLoading.visibility = View.GONE
 
-        val usersList = resource.data as List<User>
+        val usersList = resource.data as? List<User>
         originalUsersList.clear()
-        originalUsersList.addAll(usersList)
-        dataSetWasChanged(usersList)
+        usersList?.let {
+            originalUsersList.addAll(it)
+            dataSetWasChanged(it)
+        }
     }
 
     private fun dataSetWasChanged(list: List<User>) {
@@ -126,16 +137,23 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == KEY_CODE_RECEIPT && resultCode == Activity.RESULT_OK) {
-            val transactionResponse = data?.getParcelableExtra<TransactionResponse>(KEY_EXTRA_TRANSACTION)
-            val creditCard = data?.getParcelableExtra<CreditCard>(KEY_EXTRA_CREDIT_CARD)
+            startReceiptBottomSheet(data)
+        }
+    }
 
-            val bundle = Bundle().apply {
-                putParcelable(KEY_EXTRA_TRANSACTION, transactionResponse)
-                putParcelable(KEY_EXTRA_CREDIT_CARD, creditCard)
-            }
-            val bottomSheetFragment = ReceiptBottomSheetFragment()
-            bottomSheetFragment.arguments = bundle
-            bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
+    private fun startReceiptBottomSheet(data: Intent?) {
+        val transactionResponse = data?.getParcelableExtra<TransactionResponse>(KEY_EXTRA_TRANSACTION)
+        val creditCard = data?.getParcelableExtra<CreditCard>(KEY_EXTRA_CREDIT_CARD)
+
+        val bottomSheetFragment = ReceiptBottomSheetFragment()
+        bottomSheetFragment.arguments = createBundleBottomSheet(transactionResponse, creditCard)
+        bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
+    }
+
+    private fun createBundleBottomSheet(transactionResponse: TransactionResponse?, creditCard: CreditCard?): Bundle {
+        return Bundle().apply {
+            putParcelable(KEY_EXTRA_TRANSACTION, transactionResponse)
+            putParcelable(KEY_EXTRA_CREDIT_CARD, creditCard)
         }
     }
 }

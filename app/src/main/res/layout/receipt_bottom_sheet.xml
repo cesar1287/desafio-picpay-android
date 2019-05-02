@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/vgReceiptContent"
-            android:background="@color/backgroud_header_receipt"
+            android:background="@color/backgroundHeaderReceipt"
     >
 
         <ImageView
@@ -37,7 +37,7 @@
                 app:layout_constraintTop_toBottomOf="@id/ivReceiptSwipeBar"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:background="@color/backgroud_header_receipt"
+                android:background="@color/backgroundHeaderReceipt"
                 android:layout_marginTop="@dimen/xdefaultMargin"
                 android:paddingBottom="@dimen/xdefaultMargin"
                 android:text="@string/receipt_label"

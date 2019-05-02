@@ -64,7 +64,7 @@ class CreditCardActivity : BaseActivity() {
 
         btCreditCardSave.setOnClickListener {
             creditCardViewModel?.save(setupHashMapToSave())
-            showToast("Cartão salvo com sucesso", Toast.LENGTH_SHORT)
+            showToast(getString(R.string.credit_card_save_successfully), Toast.LENGTH_SHORT)
             finish()
         }
 

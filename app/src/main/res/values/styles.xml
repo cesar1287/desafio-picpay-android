@@ -54,7 +54,7 @@
     </style>
 
     <style name="ButtonDefault">
-        <item name="android:background">@drawable/custom_buttom</item>
+        <item name="android:background">@drawable/custom_button</item>
         <item name="android:textSize">@dimen/default_button_size</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">@color/title_white</item>
@@ -62,7 +62,7 @@
     </style>
 
     <style name="EditTextDefault">
-        <item name="android:textColorHint">@color/edittext_text_hint_color</item>
+        <item name="android:textColorHint">@color/edittextTextHintColor</item>
         <item name="android:textColor">@color/title_white</item>
         <item name="android:background">@drawable/selector_edittext</item>
         <item name="android:padding">@dimen/xdefaultMargin</item>
@@ -72,7 +72,7 @@
     </style>
 
     <style name="ButtonDefaultDisabled">
-        <item name="android:background">@drawable/custom_buttom_disabled</item>
+        <item name="android:background">@drawable/custom_button_disabled</item>
         <item name="android:textSize">@dimen/default_button_size</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">@color/title_white</item>
@@ -81,7 +81,7 @@
 
     <style name="TextInputLayout">
         <item name="android:textSize">@dimen/default_text_input_size</item>
-        <item name="android:textColorHint">@color/hint_text_input</item>
+        <item name="android:textColorHint">@color/hintTextInput</item>
     </style>
 
     <style name="TextInputEditText">

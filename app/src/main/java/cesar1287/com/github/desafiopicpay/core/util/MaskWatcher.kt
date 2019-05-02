@@ -4,7 +4,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
 
-class MaskWatcher(private var ediTxt: EditText, private var mask: String) : TextWatcher {
+class MaskWatcher(private var editText: EditText, private var mask: String) : TextWatcher {
 
     var isUpdating: Boolean = false
     var old = ""
@@ -14,31 +14,31 @@ class MaskWatcher(private var ediTxt: EditText, private var mask: String) : Text
     override fun afterTextChanged(editable: Editable) {}
 
     override fun onTextChanged(charSequence: CharSequence, start: Int, before: Int, count: Int) {
-        val str = unmask(charSequence.toString())
-        var mascara = ""
+        val string = unmask(charSequence.toString())
+        var mask = ""
         if (isUpdating) {
-            old = str
+            old = string
             isUpdating = false
             return
         }
-        var i = 0
-        for (m in mask.toCharArray()) {
-            if (m != '#' && str.length > old.length) {
-                mascara += m
+        var index = 0
+        for (item in this.mask.toCharArray()) {
+            if (item != '#' && string.length > old.length) {
+                mask += item
                 continue
             }
             try {
-                mascara += str[i]
-            } catch (e: Exception) {
+                mask += string[index]
+            } catch (exception: Exception) {
                 break
             }
 
-            i++
+            index++
         }
 
         isUpdating = true
-        ediTxt.setText(mascara)
-        ediTxt.setSelection(mascara.length)
+        editText.setText(mask)
+        editText.setSelection(mask.length)
     }
 
     private fun unmask(s: String): String {
