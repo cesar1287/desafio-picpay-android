@@ -92,6 +92,7 @@ class CreditCardActivity : BaseActivity() {
     private fun isToShowSaveButton() {
         if (isNumberCreditCardOk && isNameOk && isCvvOk && isExpireDateOk) {
             btCreditCardSave.visibility = View.VISIBLE
+            vgCreditCardParentContainer.smoothScrollTo(0, btCreditCardSave.top)
         } else {
             btCreditCardSave.visibility = View.GONE
         }

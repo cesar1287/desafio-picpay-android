@@ -3,9 +3,11 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".features.creditCard.activity.CreditCardActivity"
         android:fillViewport="true"
+        android:id="@+id/vgCreditCardParentContainer"
 >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -131,12 +133,16 @@
                 android:id="@+id/btCreditCardSave"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/xdefaultMargin"
+                android:layout_marginTop="@dimen/xxlargeMargin"
+                android:layout_marginBottom="@dimen/xdefaultMargin"
+                android:layout_marginStart="@dimen/xdefaultMargin"
+                android:layout_marginEnd="@dimen/xdefaultMargin"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tilCreditCardCvv"
                 android:text="@string/credit_card_save"
-                android:visibility="gone"
+                android:visibility="visible"
                 style="@style/ButtonDefault"
-        />
+                app:layout_constraintVertical_bias="1.0"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
