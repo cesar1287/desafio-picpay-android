@@ -16,6 +16,12 @@ object CreditCard {
     const val KEY_HASH_ID = "id"
 }
 
+object Mask {
+    const val MASK_CREDIT_CARD = "#### #### #### ####"
+    const val MASK_EXPIRE_DATE = "##/##"
+    const val MASK_CVV = "###"
+}
+
 object Home {
     const val KEY_EXTRA_USER = "user"
 }

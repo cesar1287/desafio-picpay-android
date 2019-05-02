@@ -2,7 +2,9 @@ package cesar1287.com.github.desafiopicpay.features.creditCard.activity
 
 import android.os.Bundle
 import android.text.Editable
+import android.view.View
 import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModelProviders
 import cesar1287.com.github.desafiopicpay.R
 import cesar1287.com.github.desafiopicpay.core.model.CreditCard
@@ -11,6 +13,9 @@ import cesar1287.com.github.desafiopicpay.core.util.CreditCard.KEY_HASH_CVV
 import cesar1287.com.github.desafiopicpay.core.util.CreditCard.KEY_HASH_EXPIRY_DATE
 import cesar1287.com.github.desafiopicpay.core.util.CreditCard.KEY_HASH_ID
 import cesar1287.com.github.desafiopicpay.core.util.CreditCard.KEY_HASH_NAME
+import cesar1287.com.github.desafiopicpay.core.util.Mask.MASK_CREDIT_CARD
+import cesar1287.com.github.desafiopicpay.core.util.Mask.MASK_CVV
+import cesar1287.com.github.desafiopicpay.core.util.Mask.MASK_EXPIRE_DATE
 import cesar1287.com.github.desafiopicpay.core.util.MaskWatcher
 import cesar1287.com.github.desafiopicpay.core.util.Payment.KEY_EXTRA_CREDIT_CARD
 import cesar1287.com.github.desafiopicpay.extensions.removeAllWhiteSpaces
@@ -23,6 +28,10 @@ class CreditCardActivity : BaseActivity() {
 
     private var creditCardViewModel: CreditCardViewModel? = null
     private var creditCard: CreditCard? = null
+    private var isNumberCreditCardOk = false
+    private var isNameOk = false
+    private var isExpireDateOk = false
+    private var isCvvOk = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,22 +58,52 @@ class CreditCardActivity : BaseActivity() {
 
         creditCardViewModel?.getAllCreditCards()
 
-        tieCreditCardNumber.addTextChangedListener(MaskWatcher(tieCreditCardNumber, "#### #### #### ####"))
-        tieCreditCardExpire.addTextChangedListener(MaskWatcher(tieCreditCardExpire, "##/##"))
-        tieCreditCardCvv.addTextChangedListener(MaskWatcher(tieCreditCardCvv, "###"))
+        tieCreditCardNumber.addTextChangedListener(MaskWatcher(tieCreditCardNumber, MASK_CREDIT_CARD))
+        tieCreditCardExpire.addTextChangedListener(MaskWatcher(tieCreditCardExpire, MASK_EXPIRE_DATE))
+        tieCreditCardCvv.addTextChangedListener(MaskWatcher(tieCreditCardCvv, MASK_CVV))
 
         btCreditCardSave.setOnClickListener {
-            val creditCardHashMap: HashMap<String, Any?> = hashMapOf(
-                KEY_HASH_CARD_NUMBER to tieCreditCardNumber.text.toString().removeAllWhiteSpaces(),
-                KEY_HASH_NAME to tieCreditCardName.text.toString(),
-                KEY_HASH_EXPIRY_DATE to tieCreditCardExpire.text.toString(),
-                KEY_HASH_CVV to tieCreditCardCvv.text.toString(),
-                KEY_HASH_ID to creditCard?.id
-            )
-
-            creditCardViewModel?.save(creditCardHashMap)
+            creditCardViewModel?.save(setupHashMapToSave())
             showToast("Cartão salvo com sucesso", Toast.LENGTH_SHORT)
             finish()
         }
+
+        tieCreditCardNumber.doOnTextChanged { text, _, _, after ->
+            isNumberCreditCardOk = creditCardViewModel?.isCardNumberOk(text, after) ?: false
+            isToShowSaveButton()
+        }
+
+        tieCreditCardName.doOnTextChanged { text, _, _, after ->
+            isNameOk = creditCardViewModel?.isNameOk(text, after) ?: false
+            isToShowSaveButton()
+        }
+
+        tieCreditCardExpire.doOnTextChanged { text, _, _, after ->
+            isExpireDateOk = creditCardViewModel?.isExpireDateOk(text, after) ?: false
+            isToShowSaveButton()
+        }
+
+        tieCreditCardCvv.doOnTextChanged { text, _, _, after ->
+            isCvvOk = creditCardViewModel?.isCvvOk(text, after) ?: false
+            isToShowSaveButton()
+        }
+    }
+
+    private fun isToShowSaveButton() {
+        if (isNumberCreditCardOk && isNameOk && isCvvOk && isExpireDateOk) {
+            btCreditCardSave.visibility = View.VISIBLE
+        } else {
+            btCreditCardSave.visibility = View.GONE
+        }
+    }
+
+    private fun setupHashMapToSave(): HashMap<String, Any?> {
+        return hashMapOf(
+            KEY_HASH_CARD_NUMBER to tieCreditCardNumber.text.toString().removeAllWhiteSpaces(),
+            KEY_HASH_NAME to tieCreditCardName.text.toString(),
+            KEY_HASH_EXPIRY_DATE to tieCreditCardExpire.text.toString(),
+            KEY_HASH_CVV to tieCreditCardCvv.text.toString(),
+            KEY_HASH_ID to creditCard?.id
+        )
     }
 }

@@ -10,6 +10,10 @@ import cesar1287.com.github.desafiopicpay.core.util.CreditCard.KEY_HASH_CVV
 import cesar1287.com.github.desafiopicpay.core.util.CreditCard.KEY_HASH_EXPIRY_DATE
 import cesar1287.com.github.desafiopicpay.core.util.CreditCard.KEY_HASH_ID
 import cesar1287.com.github.desafiopicpay.core.util.CreditCard.KEY_HASH_NAME
+import cesar1287.com.github.desafiopicpay.core.util.Mask.MASK_CREDIT_CARD
+import cesar1287.com.github.desafiopicpay.core.util.Mask.MASK_CVV
+import cesar1287.com.github.desafiopicpay.core.util.Mask.MASK_EXPIRE_DATE
+import cesar1287.com.github.desafiopicpay.extensions.removeAllWhiteSpaces
 import cesar1287.com.github.desafiopicpay.features.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -46,5 +50,58 @@ class CreditCardViewModel(application: Application) : BaseViewModel(application)
         scope.launch(Dispatchers.IO) {
             allCreditCards.postValue(repository.getAllCreditCards())
         }
+    }
+
+    fun isCardNumberOk(text: CharSequence?, after: Int): Boolean {
+        if (after == 0) {
+            return false
+        }
+
+        val inputTextLength = text.toString().length
+        val maskLength = MASK_CREDIT_CARD.removeAllWhiteSpaces().length
+
+        if (inputTextLength > maskLength) {
+            return true
+        }
+
+        return inputTextLength == maskLength
+    }
+
+    fun isNameOk(text: CharSequence?, after: Int): Boolean {
+        if (after == 0) {
+            return false
+        }
+
+        return text.toString().isNotBlank()
+    }
+
+    fun isExpireDateOk(text: CharSequence?, after: Int): Boolean? {
+        if (after == 0) {
+            return false
+        }
+
+        val inputTextLength = text.toString().length
+        val maskLength = MASK_EXPIRE_DATE.replace("/", "").length
+
+        if (inputTextLength > maskLength) {
+            return true
+        }
+
+        return inputTextLength == maskLength || inputTextLength == (maskLength - 1)
+    }
+
+    fun isCvvOk(text: CharSequence?, after: Int): Boolean? {
+        if (after == 0) {
+            return false
+        }
+
+        val inputTextLength = text.toString().length
+        val maskLength = MASK_CVV.length
+
+        if (inputTextLength > maskLength) {
+            return true
+        }
+
+        return inputTextLength == maskLength
     }
 }
