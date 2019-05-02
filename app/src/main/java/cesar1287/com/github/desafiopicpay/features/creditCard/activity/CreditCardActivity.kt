@@ -92,10 +92,16 @@ class CreditCardActivity : BaseActivity() {
     private fun isToShowSaveButton() {
         if (isNumberCreditCardOk && isNameOk && isCvvOk && isExpireDateOk) {
             btCreditCardSave.visibility = View.VISIBLE
-            vgCreditCardParentContainer.smoothScrollTo(0, btCreditCardSave.top)
+            scrollToBottom()
         } else {
             btCreditCardSave.visibility = View.GONE
         }
+    }
+
+    private fun scrollToBottom() {
+        vgCreditCardParentContainer.postDelayed({
+            vgCreditCardParentContainer.smoothScrollTo(tieCreditCardCvv.bottom, btCreditCardSave.bottom)
+        }, 300)
     }
 
     private fun setupHashMapToSave(): HashMap<String, Any?> {

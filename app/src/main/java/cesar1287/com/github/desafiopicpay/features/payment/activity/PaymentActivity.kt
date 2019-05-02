@@ -43,6 +43,7 @@ class PaymentActivity : BaseActivity() {
     private var creditCardViewModel : CreditCardViewModel? = null
     private var user : User? = null
     private lateinit var creditCard : CreditCard
+    private val creditCardList: MutableList<CreditCard> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -148,13 +149,17 @@ class PaymentActivity : BaseActivity() {
         }
 
         btPaymentPay.setOnClickListener {
-            setupLoadingApiCall(View.VISIBLE)
-            val body = setupHashMapToApi()
-            paymentViewModel?.insertTransaction(body)
+            if (verifyHasCreditCard()) {
+                setupLoadingApiCall(View.VISIBLE)
+                val body = setupHashMapToApi()
+                paymentViewModel?.insertTransaction(body)
+            } else {
+                startCreditCardCover()
+            }
         }
 
         btPaymentRegisterCreditCard.setOnClickListener {
-            startActivity(Intent(this@PaymentActivity, CreditCardCoverActivity::class.java))
+            startCreditCardCover()
         }
 
         tvPaymentEdit.setOnClickListener {
@@ -168,8 +173,17 @@ class PaymentActivity : BaseActivity() {
         })
 
         creditCardViewModel?.allCreditCards?.observe(this, Observer {
+            creditCardList.addAll(it)
             processCreditCarList(it)
         })
+    }
+
+    private fun startCreditCardCover() {
+        startActivity(Intent(this@PaymentActivity, CreditCardCoverActivity::class.java))
+    }
+
+    private fun verifyHasCreditCard(): Boolean {
+        return !creditCardList.isNullOrEmpty()
     }
 
     private fun setupPaymentScreen(textColor: Int, isButtonEnabled: Boolean, alpha: Float? = null) {
