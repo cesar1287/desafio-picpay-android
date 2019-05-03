@@ -25,8 +25,8 @@ android {
             experimental = true
         }
 
-        testOptions {
-            unitTests.returnDefaultValues = true
+        lintOptions {
+            abortOnError false
         }
     }
     buildTypes {
