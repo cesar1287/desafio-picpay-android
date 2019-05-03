@@ -38,12 +38,10 @@ class MainActivity : AppCompatActivity() {
         setupObservables()
         loadContent()
 
-        //todo ajustar layout da tela principal, para fixar a barra de pesquisa no topo, e scrollar apenas a recyclerView
         //todo data binding para telas
-        //todo ajustar bottom sheet que fundo fica preto, de pagamento
-        //todo testes unitários
         //todo testes de interface
         //todo barra de pesquisa totalmente fiel ao modelo
+        //todo ajustar layout da tela principal, para fixar a barra de pesquisa no topo, e scrollar apenas a recyclerView
     }
 
     private fun setupObservables() {

@@ -4,11 +4,7 @@ import java.text.NumberFormat
 import java.util.*
 
 fun String.getLast4CreditCardNumbers(): String {
-    return try {
-        this.substring(this.length - 4, this.length)
-    } catch (indexOutOfBounds: IndexOutOfBoundsException) {
-        ""
-    }
+    return this.takeLast(4)
 }
 
 fun String.replaceDesiredToBlank(regex: String): String {
