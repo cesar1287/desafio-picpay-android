@@ -27,4 +27,6 @@
 
     <string name="receipt_label">Recibo</string>
     <string name="receipt_total">Total pago</string>
+    <string name="credit_cards_label">Cartões de crédito</string>
+    <string name="credit_card_brand_label">Mastercard</string>
 </resources>

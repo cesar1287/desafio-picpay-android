@@ -15,6 +15,7 @@ object CreditCard {
     const val KEY_HASH_EXPIRY_DATE = "expiryDate"
     const val KEY_HASH_CVV = "cvv"
     const val KEY_HASH_ID = "id"
+    const val KEY_EXTRA_CREDIT_CARD_LIST = "creditCardList"
 }
 
 object Mask {

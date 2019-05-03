@@ -14,6 +14,7 @@ import cesar1287.com.github.desafiopicpay.core.api.Status
 import cesar1287.com.github.desafiopicpay.core.model.CreditCard
 import cesar1287.com.github.desafiopicpay.core.model.TransactionResponse
 import cesar1287.com.github.desafiopicpay.core.model.User
+import cesar1287.com.github.desafiopicpay.core.util.CreditCard.KEY_EXTRA_CREDIT_CARD_LIST
 import cesar1287.com.github.desafiopicpay.core.util.Error.ERROR_DEFAULT
 import cesar1287.com.github.desafiopicpay.core.util.GlideApp
 import cesar1287.com.github.desafiopicpay.core.util.Home.KEY_EXTRA_USER
@@ -75,14 +76,18 @@ class PaymentActivity : BaseActivity() {
     private fun processCreditCarList(it: List<CreditCard>?) {
         it?.let { creditCardList ->
             creditCardList.firstOrNull()?.let {
-                setupFirstCreditCard(it)
-
-                setVisibilityContainerSelectedCreditCard(View.VISIBLE)
-                tvPaymentCreditCard.text = "Mastercard ${creditCard.cardNumber?.getLast4CreditCardNumbers()} •"
+                setupSelectedCreditCard(it)
             } ?: run {
                 setVisibilityContainerSelectedCreditCard(View.GONE)
             }
         }
+    }
+
+    private fun setupSelectedCreditCard(it: CreditCard) {
+        setupFirstCreditCard(it)
+
+        setVisibilityContainerSelectedCreditCard(View.VISIBLE)
+        tvPaymentCreditCard.text = "Mastercard ${creditCard.cardNumber?.getLast4CreditCardNumbers()} •"
     }
 
     private fun setupFirstCreditCard(it: CreditCard) {
@@ -173,9 +178,26 @@ class PaymentActivity : BaseActivity() {
         })
 
         creditCardViewModel?.allCreditCards?.observe(this, Observer {
+            creditCardList.clear()
             creditCardList.addAll(it)
             processCreditCarList(it)
         })
+
+        tvPaymentCreditCard.setOnClickListener {
+            val bottomSheetFragment = CreditCardBottomSheetFragment()
+            bottomSheetFragment.arguments = createBundleBottomSheet(creditCardList)
+            bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
+        }
+
+        paymentViewModel?.creditCardSelected?.observe(this, Observer { creditCard ->
+            creditCard?.let { setupSelectedCreditCard(it) }
+        })
+    }
+
+    private fun createBundleBottomSheet(creditCardList: MutableList<CreditCard>): Bundle? {
+        return Bundle().apply {
+            putParcelableArray(KEY_EXTRA_CREDIT_CARD_LIST, creditCardList.toTypedArray())
+        }
     }
 
     private fun startCreditCardCover() {

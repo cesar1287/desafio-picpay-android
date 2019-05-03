@@ -39,13 +39,13 @@ class MainActivity : AppCompatActivity() {
         loadContent()
 
         //todo implementar bottomsheet para escolha de cartão
-        //todo modularizar código e implentar business, se necessário
 
         //todo ajustar layout da tela principal, para fixar a barra de pesquisa no topo, e scrollar apenas a recyclerView
         //todo data binding para telas
         //todo ajustar bottom sheet que fundo fica preto, de pagamento
         //todo testes unitários
         //todo testes de interface
+        //todo barra de pesquisa totalmente fiel ao modelo
     }
 
     private fun setupObservables() {

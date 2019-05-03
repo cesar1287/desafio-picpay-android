@@ -3,6 +3,7 @@ package cesar1287.com.github.desafiopicpay.core.util
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
+import cesar1287.com.github.desafiopicpay.extensions.unmask
 
 class MaskWatcher(private var editText: EditText, private var mask: String) : TextWatcher {
 
@@ -14,7 +15,7 @@ class MaskWatcher(private var editText: EditText, private var mask: String) : Te
     override fun afterTextChanged(editable: Editable) {}
 
     override fun onTextChanged(charSequence: CharSequence, start: Int, before: Int, count: Int) {
-        val string = unmask(charSequence.toString())
+        val string = charSequence.toString().unmask()
         var mask = ""
         if (isUpdating) {
             old = string
@@ -39,12 +40,5 @@ class MaskWatcher(private var editText: EditText, private var mask: String) : Te
         isUpdating = true
         editText.setText(mask)
         editText.setSelection(mask.length)
-    }
-
-    private fun unmask(s: String): String {
-        return s.replace("[.]".toRegex(), "").replace("[-]".toRegex(), "").replace("[/]".toRegex(), "")
-            .replace("[(]".toRegex(), "").replace(
-                "[ ]".toRegex(), ""
-            ).replace("[:]".toRegex(), "").replace("[)]".toRegex(), "")
     }
 }

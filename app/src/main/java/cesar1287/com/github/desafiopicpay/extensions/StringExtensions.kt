@@ -22,3 +22,10 @@ fun String.brlToDouble(): Double {
 fun String.removeAllWhiteSpaces(): String {
     return this.replace("\\s".toRegex(), "")
 }
+
+fun String.unmask(): String {
+    return this.replace("[.]".toRegex(), "").replace("[-]".toRegex(), "").replace("[/]".toRegex(), "")
+        .replace("[(]".toRegex(), "").replace(
+            "[ ]".toRegex(), ""
+        ).replace("[:]".toRegex(), "").replace("[)]".toRegex(), "")
+}
