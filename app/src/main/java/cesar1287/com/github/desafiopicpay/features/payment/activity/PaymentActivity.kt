@@ -87,7 +87,8 @@ class PaymentActivity : BaseActivity() {
         setupFirstCreditCard(it)
 
         setVisibilityContainerSelectedCreditCard(View.VISIBLE)
-        tvPaymentCreditCard.text = "Mastercard ${creditCard.cardNumber?.getLast4CreditCardNumbers()} •"
+        tvPaymentCreditCard.text = String.format(getString(R.string.payment_selected_credit_card),
+            creditCard.cardNumber?.getLast4CreditCardNumbers())
     }
 
     private fun setupFirstCreditCard(it: CreditCard) {
@@ -110,13 +111,15 @@ class PaymentActivity : BaseActivity() {
     }
 
     private fun startReceiptBottomSheet(resource: Resource) {
-        val returnIntent = Intent().apply {
+        setResult(Activity.RESULT_OK, createReturnToMainIntent(resource))
+        finish()
+    }
+
+    private fun createReturnToMainIntent(resource: Resource): Intent {
+        return Intent().apply {
             putExtra(KEY_EXTRA_TRANSACTION, resource.data as? TransactionResponse)
             putExtra(KEY_EXTRA_CREDIT_CARD, creditCard)
         }
-
-        setResult(Activity.RESULT_OK, returnIntent)
-        finish()
     }
 
     private fun setupHashMapToApi(): HashMap<String, Any> {
@@ -135,44 +138,12 @@ class PaymentActivity : BaseActivity() {
     }
 
     private fun setupObservables() {
-        etPaymentValue.addTextChangedListener(MoneyTextWatcher(WeakReference(etPaymentValue)))
-        etPaymentValue.doOnTextChanged { text, _, _, after ->
-            val buttonBackground = paymentViewModel?.getResourceByValue(text.toString(), after) ?: R.drawable.custom_button
+        componentObservables()
 
-            if (buttonBackground == R.drawable.custom_button) {
-                setupPaymentScreen(
-                    textColor = ContextCompat.getColor(this, R.color.colorAccent),
-                    isButtonEnabled = true)
-            } else {
-                setupPaymentScreen(
-                    textColor = ContextCompat.getColor(this, R.color.title_white),
-                    isButtonEnabled = false,
-                    alpha = 0.4f)
-            }
+        viewModelObservables()
+    }
 
-            btPaymentPay.setBackgroundResource(buttonBackground)
-        }
-
-        btPaymentPay.setOnClickListener {
-            if (verifyHasCreditCard()) {
-                setupLoadingApiCall(View.VISIBLE)
-                val body = setupHashMapToApi()
-                paymentViewModel?.insertTransaction(body)
-            } else {
-                startCreditCardCover()
-            }
-        }
-
-        btPaymentRegisterCreditCard.setOnClickListener {
-            startCreditCardCover()
-        }
-
-        tvPaymentEdit.setOnClickListener {
-            val intent = Intent(this@PaymentActivity, CreditCardActivity::class.java)
-            intent.putExtra(KEY_EXTRA_CREDIT_CARD, creditCard)
-            startActivity(intent)
-        }
-
+    private fun viewModelObservables() {
         paymentViewModel?.paymentLiveData?.observe(this, Observer { resource ->
             processApiReturn(resource)
         })
@@ -183,15 +154,75 @@ class PaymentActivity : BaseActivity() {
             processCreditCarList(it)
         })
 
-        tvPaymentCreditCard.setOnClickListener {
-            val bottomSheetFragment = CreditCardBottomSheetFragment()
-            bottomSheetFragment.arguments = createBundleBottomSheet(creditCardList)
-            bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
-        }
-
         paymentViewModel?.creditCardSelected?.observe(this, Observer { creditCard ->
             creditCard?.let { setupSelectedCreditCard(it) }
         })
+    }
+
+    private fun componentObservables() {
+        etPaymentValue.addTextChangedListener(MoneyTextWatcher(WeakReference(etPaymentValue)))
+
+        etPaymentValue.doOnTextChanged { text, _, _, after ->
+            setupEditValueContainer(text, after)
+        }
+
+        btPaymentPay.setOnClickListener {
+            onClickPaymentButton()
+        }
+
+        btPaymentRegisterCreditCard.setOnClickListener {
+            startCreditCardCover()
+        }
+
+        tvPaymentCreditCard.setOnClickListener {
+            startCreditCardSelectionBottomSheet()
+        }
+
+        tvPaymentEdit.setOnClickListener {
+            startEditCreditCard()
+        }
+    }
+
+    private fun startEditCreditCard() {
+        val intent = Intent(this@PaymentActivity, CreditCardActivity::class.java)
+        intent.putExtra(KEY_EXTRA_CREDIT_CARD, creditCard)
+        startActivity(intent)
+    }
+
+    private fun onClickPaymentButton() {
+        if (verifyHasCreditCard()) {
+            setupLoadingApiCall(View.VISIBLE)
+            val body = setupHashMapToApi()
+            paymentViewModel?.insertTransaction(body)
+        } else {
+            startCreditCardCover()
+        }
+    }
+
+    private fun startCreditCardSelectionBottomSheet() {
+        val bottomSheetFragment = CreditCardBottomSheetFragment()
+        bottomSheetFragment.arguments = createBundleBottomSheet(creditCardList)
+        bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
+    }
+
+    private fun setupEditValueContainer(text: CharSequence?, after: Int) {
+        val buttonBackground = paymentViewModel?.getResourceByValue(text.toString(), after) ?: R.drawable.custom_button
+
+        if (buttonBackground == R.drawable.custom_button) {
+            setupPaymentScreen(
+                textColor = ContextCompat.getColor(this, R.color.colorAccent),
+                isButtonEnabled = true,
+                alpha = 1f
+            )
+        } else {
+            setupPaymentScreen(
+                textColor = ContextCompat.getColor(this, R.color.title_white),
+                isButtonEnabled = false,
+                alpha = 0.4f
+            )
+        }
+
+        btPaymentPay.setBackgroundResource(buttonBackground)
     }
 
     private fun createBundleBottomSheet(creditCardList: MutableList<CreditCard>): Bundle? {
@@ -208,9 +239,11 @@ class PaymentActivity : BaseActivity() {
         return !creditCardList.isNullOrEmpty()
     }
 
-    private fun setupPaymentScreen(textColor: Int, isButtonEnabled: Boolean, alpha: Float? = null) {
+    private fun setupPaymentScreen(textColor: Int, isButtonEnabled: Boolean, alpha: Float) {
         tvPaymentMonetaryMask.setTextColor(textColor)
+        tvPaymentMonetaryMask.alpha = alpha
         etPaymentValue.setTextColor(textColor)
+        etPaymentValue.alpha = alpha
         btPaymentPay.isEnabled = isButtonEnabled
     }
 

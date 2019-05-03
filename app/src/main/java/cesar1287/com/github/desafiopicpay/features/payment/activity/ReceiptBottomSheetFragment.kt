@@ -36,7 +36,8 @@ class ReceiptBottomSheetFragment : BottomSheetDialogFragment() {
                 tvReceiptDate.text = transactionResponseNonNull.transaction.timestamp.toFormattedDate()
                 tvReceiptTransactionId.text = transactionResponseNonNull.transaction.id.toString()
 
-                tvReceiptCreditCard.text = "Cartão Master ${it.cardNumber?.getLast4CreditCardNumbers()}"
+                tvReceiptCreditCard.text = String.format(requireContext().getString(R.string.receipt_credit_card),
+                    it.cardNumber?.getLast4CreditCardNumbers())
                 tvReceiptCreditCardValue.text = transactionResponseNonNull.transaction.value.toBRL()
                 tvReceiptTotalValue.text = transactionResponseNonNull.transaction.value.toBRL()
             }

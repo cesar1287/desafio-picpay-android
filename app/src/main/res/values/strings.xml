@@ -18,15 +18,17 @@
     <string name="credit_card_cvv">CVV</string>
     <string name="credit_card_save">Salvar</string>
     <string name="credit_card_save_successfully">Cartão salvo com sucesso</string>
+    <string name="credit_cards_label">Cartões de crédito</string>
+    <string name="credit_card_brand_label">Mastercard</string>
 
     <string name="payment_pay">Pagar</string>
     <string name="payment_monetary_mask">R$</string>
     <string name="payment_default_value">0,00</string>
     <string name="payment_edit">Editar</string>
     <string name="payment_register_credit_card">Cadastrar cartão</string>
+    <string name="payment_selected_credit_card">Mastercard %1$s •</string>
 
     <string name="receipt_label">Recibo</string>
     <string name="receipt_total">Total pago</string>
-    <string name="credit_cards_label">Cartões de crédito</string>
-    <string name="credit_card_brand_label">Mastercard</string>
+    <string name="receipt_credit_card">Cartão Master %1$s</string>
 </resources>
