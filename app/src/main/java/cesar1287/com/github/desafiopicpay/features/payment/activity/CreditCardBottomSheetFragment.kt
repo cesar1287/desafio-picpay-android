@@ -30,6 +30,10 @@ class CreditCardBottomSheetFragment : BottomSheetDialogFragment(), CreditCardSel
 
         val creditCardsList = arguments?.get(KEY_EXTRA_CREDIT_CARD_LIST) as? Array<CreditCard>
 
+        setupRecyclerView(creditCardsList)
+    }
+
+    private fun setupRecyclerView(creditCardsList: Array<CreditCard>?) {
         val layoutManager = LinearLayoutManager(context)
         rvCreditCardsContent.layoutManager = layoutManager
         val creditCardAdapter = CreditCardAdapter(creditCardsList, this)

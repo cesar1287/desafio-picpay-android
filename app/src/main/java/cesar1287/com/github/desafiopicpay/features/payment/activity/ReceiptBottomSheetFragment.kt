@@ -30,17 +30,26 @@ class ReceiptBottomSheetFragment : BottomSheetDialogFragment() {
 
         transactionResponse?.let { transactionResponseNonNull ->
             creditCard?.let {
-                GlideApp.with(this).load(transactionResponseNonNull.transaction.destinationUser.img).into(ivReceiptAvatar)
-
-                tvReceiptUsername.text = transactionResponseNonNull.transaction.destinationUser.username
-                tvReceiptDate.text = transactionResponseNonNull.transaction.timestamp.toFormattedDate()
-                tvReceiptTransactionId.text = transactionResponseNonNull.transaction.id.toString()
-
-                tvReceiptCreditCard.text = String.format(requireContext().getString(R.string.receipt_credit_card),
-                    it.cardNumber?.getLast4CreditCardNumbers())
-                tvReceiptCreditCardValue.text = transactionResponseNonNull.transaction.value.toBRL()
-                tvReceiptTotalValue.text = transactionResponseNonNull.transaction.value.toBRL()
+                setupReceiptInfo(transactionResponseNonNull, it)
             }
         }
+    }
+
+    private fun setupReceiptInfo(
+        transactionResponseNonNull: TransactionResponse,
+        it: CreditCard
+    ) {
+        GlideApp.with(this).load(transactionResponseNonNull.transaction.destinationUser.img).into(ivReceiptAvatar)
+
+        tvReceiptUsername.text = transactionResponseNonNull.transaction.destinationUser.username
+        tvReceiptDate.text = transactionResponseNonNull.transaction.timestamp.toFormattedDate()
+        tvReceiptTransactionId.text = transactionResponseNonNull.transaction.id.toString()
+
+        tvReceiptCreditCard.text = String.format(
+            requireContext().getString(R.string.receipt_credit_card),
+            it.cardNumber?.getLast4CreditCardNumbers()
+        )
+        tvReceiptCreditCardValue.text = transactionResponseNonNull.transaction.value.toBRL()
+        tvReceiptTotalValue.text = transactionResponseNonNull.transaction.value.toBRL()
     }
 }
