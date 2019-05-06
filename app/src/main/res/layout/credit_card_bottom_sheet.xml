@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/bottom_sheet_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:layout_gravity="bottom"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/vgCreditCardsHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/rvCreditCardsContent"
+            android:background="@color/backgroundHeaderReceipt"
+    >
+
+        <ImageView
+                android:id="@+id/ivCreditCardsSwipeBar"
+                android:layout_width="40dp"
+                android:layout_height="3dp"
+                app:srcCompat="@drawable/ic_swipe_bar"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/tvCreditCardsSwipeBarLabel"
+                android:layout_marginTop="@dimen/minimumMargin"
+        />
+
+        <TextView
+                android:id="@+id/tvCreditCardsSwipeBarLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/ivCreditCardsSwipeBar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@color/backgroundHeaderReceipt"
+                android:layout_marginTop="@dimen/xdefaultMargin"
+                android:paddingBottom="@dimen/xdefaultMargin"
+                android:text="@string/credit_cards_label"
+                style="@style/Monetary"
+        />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCreditCardsContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/vgCreditCardsHeader"
+            android:paddingBottom="@dimen/defaultMargin"
+            tools:itemCount="5"
+            tools:listitem="@layout/credit_card_item"
+    >
+
+    </androidx.recyclerview.widget.RecyclerView>
+</androidx.constraintlayout.widget.ConstraintLayout>

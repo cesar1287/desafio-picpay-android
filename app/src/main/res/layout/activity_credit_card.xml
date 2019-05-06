@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".features.creditCard.activity.CreditCardActivity"
+        android:fillViewport="true"
+        android:background="@color/colorPrimary"
+        android:id="@+id/vgCreditCardParentContainer"
+>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tbCreditCardToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+        />
+
+        <TextView
+                android:id="@+id/tvCreditCardTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tbCreditCardToolbar"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/credit_card_title"
+                android:layout_marginStart="@dimen/default_margin_title"
+                android:layout_marginTop="@dimen/largeMargin"
+                style="@style/MainTitle"
+        />
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilCreditCardNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/credit_card_number"
+                app:layout_constraintTop_toBottomOf="@+id/tvCreditCardTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/xxxlargeMargin"
+                android:layout_marginStart="@dimen/default_margin_text_input"
+                android:layout_marginEnd="@dimen/default_margin_text_input"
+                style="@style/TextInputLayout"
+        >
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tieCreditCardNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    style="@style/TextInputEditText"
+            />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilCreditCardName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/credit_card_name"
+                app:layout_constraintTop_toBottomOf="@+id/tilCreditCardNumber"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/xxxlargeMargin"
+                android:layout_marginStart="@dimen/default_margin_text_input"
+                android:layout_marginEnd="@dimen/default_margin_text_input"
+                style="@style/TextInputLayout"
+        >
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tieCreditCardName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    style="@style/TextInputEditText"
+            />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilCreditCardExpire"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/credit_card_expire"
+                app:layout_constraintTop_toBottomOf="@+id/tilCreditCardName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tilCreditCardCvv"
+                android:layout_marginTop="@dimen/xxxlargeMargin"
+                android:layout_marginStart="@dimen/default_margin_text_input"
+                android:layout_marginEnd="@dimen/default_margin_text_input"
+                app:layout_constraintHorizontal_weight="5"
+                style="@style/TextInputLayout"
+        >
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tieCreditCardExpire"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    style="@style/TextInputEditText"
+            />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilCreditCardCvv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/credit_card_cvv"
+                app:layout_constraintTop_toBottomOf="@+id/tilCreditCardName"
+                app:layout_constraintStart_toEndOf="@id/tilCreditCardExpire"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/xxxlargeMargin"
+                android:layout_marginStart="@dimen/default_margin_text_input"
+                android:layout_marginEnd="@dimen/default_margin_text_input"
+                app:layout_constraintHorizontal_weight="5"
+                style="@style/TextInputLayout"
+        >
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tieCreditCardCvv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    style="@style/TextInputEditText"
+            />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+                android:id="@+id/btCreditCardSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xxlargeMargin"
+                android:layout_marginBottom="@dimen/xdefaultMargin"
+                android:layout_marginStart="@dimen/xdefaultMargin"
+                android:layout_marginEnd="@dimen/xdefaultMargin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tilCreditCardCvv"
+                android:text="@string/credit_card_save"
+                android:visibility="gone"
+                style="@style/ButtonDefault"
+                app:layout_constraintVertical_bias="1.0"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
