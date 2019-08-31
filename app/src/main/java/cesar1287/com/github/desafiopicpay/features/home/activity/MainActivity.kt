@@ -47,8 +47,12 @@ class MainActivity : AppCompatActivity() {
     private fun setupObservables() {
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        mainViewModel?.usersLiveData?.observe(this, Observer { resource ->
-            processReturn(resource)
+        mainViewModel?.usersLiveDataSuccess?.observe(this, Observer { resource ->
+            resource?.let { processSuccessfulReturn(it) }
+        })
+
+        mainViewModel?.errorMessage?.observe(this, Observer { resource ->
+            resource?.let { processErrorReturn(it) }
         })
 
         btMainRetry.setOnClickListener {
@@ -57,17 +61,6 @@ class MainActivity : AppCompatActivity() {
 
         etMainSearch.doOnTextChanged { text, _, _, after ->
             dataSetWasChanged(mainViewModel?.doSearch(originalUsersList, text, after) ?: listOf())
-        }
-    }
-
-    private fun processReturn(resource: Resource?) {
-        when (resource?.status) {
-            Status.ERROR -> {
-                processErrorReturn(resource)
-            }
-            Status.SUCCESS -> {
-                processSuccessfulReturn(resource)
-            }
         }
     }
 
