@@ -8,14 +8,15 @@
         android:fillViewport="true"
         android:background="@color/colorPrimary"
         android:id="@+id/vgCreditCardParentContainer"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
         tools:context=".features.creditCard.activity.CreditCardActivity"
 >
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            >
 
         <androidx.appcompat.widget.Toolbar
                 android:id="@+id/tbCreditCardToolbar"
