@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import cesar1287.com.github.desafiopicpay.R
 import cesar1287.com.github.desafiopicpay.core.api.Resource
-import cesar1287.com.github.desafiopicpay.core.api.Status
 import cesar1287.com.github.desafiopicpay.core.model.CreditCard
 import cesar1287.com.github.desafiopicpay.core.model.TransactionResponse
 import cesar1287.com.github.desafiopicpay.core.model.User
