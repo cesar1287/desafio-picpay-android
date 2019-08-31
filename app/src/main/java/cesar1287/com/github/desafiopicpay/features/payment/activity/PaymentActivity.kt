@@ -7,7 +7,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import cesar1287.com.github.desafiopicpay.R
 import cesar1287.com.github.desafiopicpay.core.api.Resource
 import cesar1287.com.github.desafiopicpay.core.api.Status
@@ -133,8 +133,8 @@ class PaymentActivity : BaseActivity() {
     }
 
     private fun setupViewModel() {
-        paymentViewModel = ViewModelProviders.of(this).get(PaymentViewModel::class.java)
-        creditCardViewModel = ViewModelProviders.of(this).get(CreditCardViewModel::class.java)
+        paymentViewModel = ViewModelProvider(this).get(PaymentViewModel::class.java)
+        creditCardViewModel = ViewModelProvider(this).get(CreditCardViewModel::class.java)
     }
 
     private fun setupObservables() {

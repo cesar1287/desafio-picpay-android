@@ -5,7 +5,7 @@ import android.text.Editable
 import android.view.View
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import cesar1287.com.github.desafiopicpay.R
 import cesar1287.com.github.desafiopicpay.core.model.CreditCard
 import cesar1287.com.github.desafiopicpay.core.util.CreditCard.KEY_HASH_CARD_NUMBER
@@ -54,7 +54,7 @@ class CreditCardActivity : BaseActivity() {
     }
 
     private fun setupObservables() {
-        creditCardViewModel = ViewModelProviders.of(this).get(CreditCardViewModel::class.java)
+        creditCardViewModel = ViewModelProvider(this).get(CreditCardViewModel::class.java)
 
         creditCardViewModel?.getAllCreditCards()
 
