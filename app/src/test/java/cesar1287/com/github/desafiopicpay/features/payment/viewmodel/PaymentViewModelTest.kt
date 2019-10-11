@@ -13,7 +13,7 @@ import org.junit.rules.TestRule
 
 class PaymentViewModelTest {
 
-    lateinit var paymentViewModel: PaymentViewModel
+    private lateinit var paymentViewModel: PaymentViewModel
 
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()

@@ -6,7 +6,7 @@ import cesar1287.com.github.desafiopicpay.core.repository.BaseRepository
 
 class UserRepository(private val api : PicpayApi) : BaseRepository() {
 
-    suspend fun getUsers() : Resource{
+    suspend fun getUsers() : Resource? {
         return safeApiCall(
             call = { api.users().await() }
         )

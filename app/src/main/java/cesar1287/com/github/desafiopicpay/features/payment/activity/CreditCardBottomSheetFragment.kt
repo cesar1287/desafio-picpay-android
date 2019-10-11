@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import cesar1287.com.github.desafiopicpay.R
 import cesar1287.com.github.desafiopicpay.core.model.CreditCard
@@ -26,7 +26,7 @@ class CreditCardBottomSheetFragment : BottomSheetDialogFragment(), CreditCardSel
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        paymentViewModel = activity?.let { ViewModelProviders.of(it).get(PaymentViewModel::class.java) }
+        paymentViewModel = activity?.let { ViewModelProvider(it).get(PaymentViewModel::class.java) }
 
         val creditCardsList = arguments?.get(KEY_EXTRA_CREDIT_CARD_LIST) as? Array<CreditCard>
 

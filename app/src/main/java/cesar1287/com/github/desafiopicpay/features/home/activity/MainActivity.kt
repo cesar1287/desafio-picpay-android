@@ -7,11 +7,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import cesar1287.com.github.desafiopicpay.R
 import cesar1287.com.github.desafiopicpay.core.api.Resource
-import cesar1287.com.github.desafiopicpay.core.api.Status
 import cesar1287.com.github.desafiopicpay.core.model.CreditCard
 import cesar1287.com.github.desafiopicpay.core.model.TransactionResponse
 import cesar1287.com.github.desafiopicpay.core.model.User
@@ -45,10 +44,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupObservables() {
-        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        mainViewModel?.usersLiveData?.observe(this, Observer { resource ->
-            processReturn(resource)
+        mainViewModel?.usersLiveDataSuccess?.observe(this, Observer { resource ->
+            resource?.let { processSuccessfulReturn(it) }
+        })
+
+        mainViewModel?.errorMessage?.observe(this, Observer { resource ->
+            resource?.let { processErrorReturn(it) }
         })
 
         btMainRetry.setOnClickListener {
@@ -57,17 +60,6 @@ class MainActivity : AppCompatActivity() {
 
         etMainSearch.doOnTextChanged { text, _, _, after ->
             dataSetWasChanged(mainViewModel?.doSearch(originalUsersList, text, after) ?: listOf())
-        }
-    }
-
-    private fun processReturn(resource: Resource?) {
-        when (resource?.status) {
-            Status.ERROR -> {
-                processErrorReturn(resource)
-            }
-            Status.SUCCESS -> {
-                processSuccessfulReturn(resource)
-            }
         }
     }
 
